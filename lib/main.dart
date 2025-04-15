@@ -1,4 +1,6 @@
-import 'package:aria_remote/variables/get_settings.dart';
+import 'package:aria_remote/pages/active.dart';
+import 'package:aria_remote/utils/get_functions.dart';
+import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +19,16 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
 
   final GetSettings settings=Get.put(GetSettings());
+  final GetFunctions functions=Get.put(GetFunctions());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      functions.initPrefs(context);
+    });
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,6 @@ class _MainAppState extends State<MainApp> {
     return Obx(()=>
       GetMaterialApp(
         theme: settings.darkMode.value ? ThemeData.dark().copyWith(
-          // 设置暗色模式的字体默认颜色
           textTheme: GoogleFonts.notoSansScTextTheme().apply(
               bodyColor: Colors.white,
               displayColor: Colors.white, 
@@ -39,6 +50,7 @@ class _MainAppState extends State<MainApp> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
             textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
+        home: const Active(),
       )
     );
   }
