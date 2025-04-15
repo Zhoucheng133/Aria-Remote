@@ -40,6 +40,7 @@ class _MainAppState extends State<MainApp> {
 
     return Obx(()=>
       GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: settings.darkMode.value ? ThemeData.dark().copyWith(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,

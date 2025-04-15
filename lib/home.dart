@@ -1,3 +1,6 @@
+import 'package:aria_remote/pages/active.dart';
+import 'package:aria_remote/pages/finished.dart';
+import 'package:aria_remote/pages/settings.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +30,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(pages.nameController()),
         ),
@@ -50,8 +54,13 @@ class _HomeState extends State<Home> {
             )
           ]
         ),
-        body: const Center(
-          child: Text('hello world'),
+        body: IndexedStack(
+          index: pages.page.value.index,
+          children: const [
+            Active(),
+            Finished(),
+            Settings(),
+          ],
         ),
       )
     );

@@ -10,8 +10,8 @@ class Active extends StatefulWidget {
 class _ActiveState extends State<Active> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
+    return const Center(
+      child: Text('活跃中'),
     );
   }
 }
