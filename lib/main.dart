@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  Get.put(GetPages());
   Get.put(GetSettings());
   Get.put(GetFunctions());
-  Get.put(GetPages());
   runApp(const MainApp());
 }
 
@@ -41,15 +41,19 @@ class _MainAppState extends State<MainApp> {
     return Obx(()=>
       GetMaterialApp(
         theme: settings.darkMode.value ? ThemeData.dark().copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           textTheme: GoogleFonts.notoSansScTextTheme().apply(
-              bodyColor: Colors.white,
-              displayColor: Colors.white, 
+            bodyColor: Colors.white,
+            displayColor: Colors.white, 
           ),
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.teal,
-              brightness: Brightness.dark,
+            seedColor: Colors.teal,
+            brightness: Brightness.dark,
           )
         ) : ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
             textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
