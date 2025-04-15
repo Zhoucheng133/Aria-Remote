@@ -28,6 +28,7 @@ class _SettingsState extends State<Settings> {
                 color: Colors.grey,
                 fontSize: 13,
               ),
+              overflow: TextOverflow.ellipsis,
             ),
             onTap: ()=>functions.rpcDialog(context)
           ),
