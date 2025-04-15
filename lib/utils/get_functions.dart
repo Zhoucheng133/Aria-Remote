@@ -1,16 +1,18 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
-import 'package:aria_remote/utils/main_service.dart';
+import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetFunctions extends GetxController{
   late SharedPreferences prefs;
+
   final GetPages pages=Get.find();
   final GetSettings settings=Get.find();
-  final MainService mainService=Get.find();
+
+  final GetMainService mainService=Get.find();
 
   // PRC对话框
   Future<void> rpcDialog(BuildContext context) async {

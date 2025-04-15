@@ -6,8 +6,17 @@ enum Pages{
   settings,
 }
 
+enum Order{
+  newTime,
+  oldTime,
+  titleA,
+  titleZ,
+}
+
 class GetPages extends GetxController{
   Rx<Pages> page=Rx(Pages.active);
+  var activeOrder=Order.oldTime.obs;
+  var finishedOrder=Order.oldTime.obs;
 
   String nameController(){
     if(page.value==Pages.active){

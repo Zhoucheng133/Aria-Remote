@@ -2,16 +2,18 @@ import 'package:aria_remote/home.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
-import 'package:aria_remote/utils/main_service.dart';
+import 'package:aria_remote/utils/get_main_service.dart';
+import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  Get.put(GetTasks());
   Get.put(GetPages());
   Get.put(GetSettings());
-  Get.put(MainService());
+  Get.put(GetMainService());
   Get.put(GetFunctions());
   runApp(const MainApp());
 }
