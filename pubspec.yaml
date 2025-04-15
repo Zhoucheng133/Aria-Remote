@@ -7,6 +7,7 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  adaptive_dialog: ^2.1.0
   flutter:
     sdk: flutter
   get: ^4.7.2
