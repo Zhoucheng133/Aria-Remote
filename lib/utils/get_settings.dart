@@ -9,11 +9,11 @@ class GetSettings extends GetxController{
     }
   }
 
-  Rx<String?> rpc=null.obs;
-  Rx<String?> secret=null.obs;
+  RxString rpc="".obs;
+  RxString secret="".obs;
 
   bool isLogin(){
-    return rpc.value!=null && secret.value!=null;
+    return rpc.value.isEmpty && secret.value.isEmpty;
   }
   
 }
