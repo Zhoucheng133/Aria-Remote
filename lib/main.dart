@@ -1,5 +1,6 @@
 import 'package:aria_remote/home.dart';
 import 'package:aria_remote/utils/get_functions.dart';
+import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main() {
   Get.put(GetSettings());
   Get.put(GetFunctions());
+  Get.put(GetPages());
   runApp(const MainApp());
 }
 
