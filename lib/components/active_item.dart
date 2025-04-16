@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ActiveItem extends StatefulWidget {
@@ -145,8 +146,15 @@ class _ActiveItemState extends State<ActiveItem> {
                   ],
                 ),
                 IconButton(
-                  onPressed: (){
-                    // TODO 操作
+                  onPressed: () async {
+                    final rlt=await showModalActionSheet(
+                      context: context,
+                      title: '任务操作',
+                      cancelLabel: '取消',
+                      actions: [
+                        const SheetAction(label: '删除任务')
+                      ]
+                    );
                   }, 
                   icon: const Icon(
                     Icons.more_vert_rounded
