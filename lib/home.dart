@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          forceMaterialTransparency: true,
           title: Text(pages.nameController()),
         ),
         bottomNavigationBar: BottomNavigationBar(
