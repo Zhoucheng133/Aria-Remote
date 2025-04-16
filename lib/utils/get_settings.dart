@@ -13,7 +13,7 @@ class GetSettings extends GetxController{
   RxString secret="".obs;
 
   bool isLogin(){
-    return rpc.value.isEmpty && secret.value.isEmpty;
+    return rpc.value.isNotEmpty && secret.value.isNotEmpty;
   }
   
 }
