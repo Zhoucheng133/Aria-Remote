@@ -45,8 +45,6 @@ class _ActiveItemState extends State<ActiveItem> {
 
     String formattedMinutes = minutes.toString().padLeft(2, '0');
     String formattedSeconds = remainingSeconds.toString().padLeft(2, '0');
-
-    // 如果有小时数，则显示小时部分
     if (hours > 0) {
       String formattedHours = hours.toString();
       return '$formattedHours:$formattedMinutes:$formattedSeconds';
@@ -57,93 +55,108 @@ class _ActiveItemState extends State<ActiveItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 10),
-      child: Row(
+    return SizedBox(
+      width: double.infinity,
+      height: 60,
+      child: Stack(
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.name,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 5,),
-                Text(
-                  convertSize(widget.totalLength),
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12
-                  ),
-                )
-              ],
-            ),
+          FractionallySizedBox(
+            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
+            heightFactor: 1.0,
+            child: Container(color: Colors.teal[50]),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  widget.uploadSpeed!=null ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      widget.uploadSpeed!=0 ? const Icon(
-                        Icons.arrow_upward_rounded,
-                        size: 14,
-                      ) : Container(),
-                      const SizedBox(width: 3,),
                       Text(
-                        widget.uploadSpeed==0 ? '' : '${convertSize(widget.uploadSpeed!)}/s',
+                        widget.name,
                         style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 5,),
+                      Text(
+                        convertSize(widget.totalLength),
+                        style: TextStyle(
+                          color: Colors.grey[600],
                           fontSize: 12
                         ),
-                      ),
+                      )
                     ],
-                  ) : Container(),
-                  const SizedBox(width: 10,),
-                  const Icon(
-                    Icons.arrow_downward_rounded,
-                    size: 14,
-                  ),
-                  const SizedBox(width: 3,),
-                  Text(
-                    widget.downloadSpeed==0 ? '0 B/s' : '${convertSize(widget.downloadSpeed)}/s',
-                    style: const TextStyle(
-                      fontSize: 12
-                    ),
-                  ),
-                ],
-              ),
-              (widget.completedLength/widget.totalLength)!=1.0 ? Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  widget.downloadSpeed==0 ? '--:--' : formatDuration(((widget.totalLength - widget.completedLength) > 0 ? widget.totalLength - widget.completedLength : 0)~/widget.downloadSpeed),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600]
                   ),
                 ),
-              ):Container()
-            ],
-          ),
-          IconButton(
-            onPressed: (){
-
-            }, 
-            icon: const Icon(
-              Icons.more_vert_rounded
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        widget.uploadSpeed!=null ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            widget.uploadSpeed!=0 ? const Icon(
+                              Icons.arrow_upward_rounded,
+                              size: 14,
+                            ) : Container(),
+                            const SizedBox(width: 3,),
+                            Text(
+                              widget.uploadSpeed==0 ? '' : '${convertSize(widget.uploadSpeed!)}/s',
+                              style: const TextStyle(
+                                fontSize: 12
+                              ),
+                            ),
+                          ],
+                        ) : Container(),
+                        const SizedBox(width: 10,),
+                        const Icon(
+                          Icons.arrow_downward_rounded,
+                          size: 14,
+                        ),
+                        const SizedBox(width: 3,),
+                        Text(
+                          widget.downloadSpeed==0 ? '0 B/s' : '${convertSize(widget.downloadSpeed)}/s',
+                          style: const TextStyle(
+                            fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                    (widget.completedLength/widget.totalLength)!=1.0 ? Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        widget.downloadSpeed==0 ? '--:--' : formatDuration(((widget.totalLength - widget.completedLength) > 0 ? widget.totalLength - widget.completedLength : 0)~/widget.downloadSpeed),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600]
+                        ),
+                      ),
+                    ):Container()
+                  ],
+                ),
+                IconButton(
+                  onPressed: (){
+                    // TODO 操作
+                  }, 
+                  icon: const Icon(
+                    Icons.more_vert_rounded
+                  )
+                )
+              ],
             )
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }
