@@ -74,11 +74,17 @@ class GetFunctions extends GetxController{
             children: [
               const SizedBox(height: 5,),
               FTextField(
+                autocorrect: false,
+                enableSuggestions: false,
                 controller: rpcController,
+                maxLines: 1,
                 hint: 'RPC地址',
               ),
               const SizedBox(height: 10,),
-              FTextField(
+              FTextField.password(
+                label: null,
+                autocorrect: false,
+                enableSuggestions: false,
                 controller: secretController,
                 hint: 'RPC密钥',
               ),

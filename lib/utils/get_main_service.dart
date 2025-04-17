@@ -141,6 +141,8 @@ class GetMainService extends GetxController{
         serviceMain();
       });
     }else{
+      tasks.active.value=[];
+      tasks.stopped.value=[];
       if(context.mounted){
         showAdaptiveDialog(
           context: context,
