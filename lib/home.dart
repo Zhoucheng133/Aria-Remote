@@ -2,6 +2,7 @@ import 'package:aria_remote/pages/active.dart';
 import 'package:aria_remote/pages/finished.dart';
 import 'package:aria_remote/pages/settings.dart';
 import 'package:aria_remote/utils/get_functions.dart';
+import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -19,6 +20,7 @@ class _HomeState extends State<Home> {
   
   final GetFunctions functions=Get.find();
   final GetPages pages=Get.find();
+  final GetMainService mainService=Get.find();
 
   @override
   void initState() {
@@ -40,7 +42,32 @@ class _HomeState extends State<Home> {
               pages.nameController(),
               style: GoogleFonts.notoSansSc(),
             )
-          ),          
+          ),
+          actions: [
+            FHeaderAction(
+              icon: FIcon(
+                FAssets.icons.arrowDownUp,
+                size: 20,
+              ),
+              onPress: (){
+                if(pages.page.value==Pages.active){
+                  if(pages.activeOrder.value==Order.oldTime){
+                    pages.activeOrder.value=Order.newTime;
+                  }else{
+                    pages.activeOrder.value=Order.oldTime;
+                  }
+                  mainService.tellActive();
+                }else{
+                  if(pages.finishedOrder.value==Order.oldTime){
+                    pages.finishedOrder.value=Order.newTime;
+                  }else{
+                    pages.finishedOrder.value=Order.oldTime;
+                  }
+                  mainService.tellStopped();
+                }
+              }
+            )
+          ],
         ),
         footer: FBottomNavigationBar(
           index: pages.page.value.index,
