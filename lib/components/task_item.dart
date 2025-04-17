@@ -68,11 +68,16 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
       height: 60,
       child: Stack(
         children: [
-          FractionallySizedBox(
+          widget.active ? FractionallySizedBox(
             widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
             heightFactor: 1.0,
             child: Container(color: Colors.teal[50]),
-          ),
+          ) : Container(),
+          !widget.active && widget.completedLength/widget.totalLength!=1 ? FractionallySizedBox(
+            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
+            heightFactor: 1.0,
+            child: Container(color: Colors.orange[50]),
+          ) : Container(),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
             child: Row(
@@ -86,7 +91,6 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                         widget.name,
                         style: const TextStyle(
                           fontSize: 15,
-                          fontWeight: FontWeight.bold
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -101,7 +105,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                     ],
                   ),
                 ),
-                Column(
+                widget.active ? Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -151,7 +155,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                       ),
                     ):Container()
                   ],
-                ),
+                ) : Container(),
                 FPopoverMenu(
                   popoverController: controller, 
                   menu: [
