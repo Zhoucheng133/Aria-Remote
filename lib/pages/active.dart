@@ -47,23 +47,6 @@ class _ActiveState extends State<Active> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-          right: 20,
-          bottom: 20,
-          child: Obx(()=>
-            FloatingActionButton(
-              shape: const CircleBorder(),
-              backgroundColor: Colors.teal,
-              onPressed: settings.isLogin() ? (){
-            
-              } : null,
-              child: const Icon(
-                Icons.add_rounded,
-                color: Colors.white,
-              ),
-            ),
-          )
-        ),
         Obx(()=>
           ListView.builder(
             itemCount: tasks.active.length,
@@ -105,7 +88,24 @@ class _ActiveState extends State<Active> {
               );
             }
           )
-        )
+        ),
+        Positioned(
+          right: 20,
+          bottom: 20,
+          child: Obx(()=>
+            FloatingActionButton(
+              shape: const CircleBorder(),
+              backgroundColor: Colors.teal,
+              onPressed: settings.isLogin() ? (){
+                // TODO 添加任务
+              } : null,
+              child: const Icon(
+                Icons.add_rounded,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ),
       ],
     );
   }
