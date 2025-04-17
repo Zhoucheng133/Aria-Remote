@@ -16,7 +16,7 @@ enum Order{
 class GetPages extends GetxController{
   Rx<Pages> page=Rx(Pages.active);
   var activeOrder=Order.oldTime.obs;
-  var finishedOrder=Order.oldTime.obs;
+  var finishedOrder=Order.newTime.obs;
 
   String nameController(){
     if(page.value==Pages.active){
