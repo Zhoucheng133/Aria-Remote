@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
             )
           ),
           actions: [
-            FHeaderAction(
+            pages.page.value==Pages.settings ? Container() : FHeaderAction(
               icon: FIcon(
                 FAssets.icons.arrowDownUp,
                 size: 20,
