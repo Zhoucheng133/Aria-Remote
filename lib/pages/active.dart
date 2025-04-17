@@ -1,7 +1,8 @@
-import 'package:aria_remote/components/active_item.dart';
+import 'package:aria_remote/components/task_item.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as p;
 
@@ -72,7 +73,7 @@ class _ActiveState extends State<Active> {
               } catch (_) {
                 name=p.basename(tasks.active[index]['files'][0]['path']);
               }
-              return ActiveItem(
+              return TaskItem(
                 name: name, 
                 totalLength: totalLength, 
                 completedLength: completedLength, 
@@ -94,17 +95,20 @@ class _ActiveState extends State<Active> {
           right: 20,
           bottom: 20,
           child: Obx(()=>
-            FloatingActionButton(
-              shape: const CircleBorder(),
-              backgroundColor: Colors.teal,
-              onPressed: settings.isLogin() ? (){
+            FButton.icon(
+              style: FButtonStyle.primary,
+              onPress: settings.isLogin() ? (){
                 // TODO 添加任务
-              } : null,
-              child: const Icon(
-                Icons.add_rounded,
-                color: Colors.white,
-              ),
-            ),
+              } : null, 
+              child: const SizedBox(
+                height: 40,
+                width: 40,
+                child: Icon(
+                  Icons.add_rounded,
+                  color: Colors.white,
+                ),
+              )
+            )
           )
         ),
       ],

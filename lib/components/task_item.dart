@@ -1,15 +1,14 @@
 import 'dart:math';
-
-// import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 
-class ActiveItem extends StatefulWidget {
+class TaskItem extends StatefulWidget {
   final String name;
   final int totalLength;
   final int completedLength; 
   final String dir;
   final int downloadSpeed;
-  final int? uploadSpeed;
+  final dynamic uploadSpeed;
   final String gid;
   final String status;
   final bool selectMode;
@@ -18,13 +17,13 @@ class ActiveItem extends StatefulWidget {
   final bool active;
   final int index;
 
-  const ActiveItem({super.key, required this.name, required this.totalLength, required this.completedLength, required this.dir, required this.downloadSpeed, this.uploadSpeed, required this.gid, required this.status, required this.selectMode, required this.changeSelectStatus, required this.checked, required this.active, required this.index});
+  const TaskItem({super.key, required this.name, required this.totalLength, required this.completedLength, required this.dir, required this.downloadSpeed, this.uploadSpeed, required this.gid, required this.status, required this.selectMode, required this.changeSelectStatus, required this.checked, required this.active, required this.index});
 
   @override
-  State<ActiveItem> createState() => _ActiveItemState();
+  State<TaskItem> createState() => _TaskItemState();
 }
 
-class _ActiveItemState extends State<ActiveItem> {
+class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin{
 
   String convertSize(int bytes) {
     try {
@@ -52,6 +51,14 @@ class _ActiveItemState extends State<ActiveItem> {
     } else {
       return '$formattedMinutes:$formattedSeconds';
     }
+  }
+
+  late FPopoverController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = FPopoverController(vsync: this);
   }
 
   @override
@@ -145,19 +152,55 @@ class _ActiveItemState extends State<ActiveItem> {
                     ):Container()
                   ],
                 ),
-                IconButton(
-                  onPressed: () async {
-                    // final rlt=await showModalActionSheet(
-                    //   context: context,
-                    //   title: '任务操作',
-                    //   cancelLabel: '取消',
-                    //   actions: [
-                    //     const SheetAction(label: '删除任务')
-                    //   ]
-                    // );
-                  }, 
-                  icon: const Icon(
-                    Icons.more_vert_rounded
+                FPopoverMenu(
+                  popoverController: controller, 
+                  menu: [
+                    FTileGroup(
+                      children: [
+                        FTile(
+                          prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
+                          title: Text(widget.status=='active' ? '暂停' : '继续'),
+                          onPress: (){},
+                        )
+                      ]
+                    ),
+                    FTileGroup(
+                      children: [
+                        FTile(
+                          prefixIcon: FIcon(FAssets.icons.info),
+                          title: const Text('任务信息'),
+                          onPress: () {},
+                        ),
+                        FTile(
+                          prefixIcon: FIcon(FAssets.icons.list),
+                          title: const Text('文件列表'),
+                          onPress: () {},
+                        ),
+                        FTile(
+                          prefixIcon: FIcon(FAssets.icons.copy),
+                          title: const Text('复制链接'),
+                          onPress: () {},
+                        ),
+                      ],
+                    ),
+                    FTileGroup(
+                      children: [
+                        FTile(
+                          prefixIcon: FIcon(FAssets.icons.trash),
+                          title: const Text('删除'),
+                          onPress: () {},
+                        ),
+                      ],
+                    ),
+                  ], 
+                  child: FButton.icon(
+                    style: FButtonStyle.ghost,
+                    onPress: () {
+                      controller.toggle();
+                    },
+                    child: const Icon(
+                      Icons.more_vert_rounded
+                    ),
                   )
                 )
               ],
