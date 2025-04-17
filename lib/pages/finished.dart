@@ -81,7 +81,7 @@ class _FinishedState extends State<Finished> {
             selectMode: select, 
             changeSelectStatus: ()=>changeSelectStatus(gid), 
             checked: checked(gid), 
-            active: true, 
+            active: false, 
             index: index,
             uploadSpeed: uploadSpeed,
           );
