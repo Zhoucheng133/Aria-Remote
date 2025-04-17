@@ -1,8 +1,8 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,52 +14,93 @@ class GetFunctions extends GetxController{
 
   final GetMainService mainService=Get.find();
 
+  Future<void> rpcOkHandler(BuildContext context, String rpc, String secret) async {
+    if((rpc.isEmpty || !rpc.startsWith('http'))&& context.mounted){
+      await showAdaptiveDialog(
+        context: context, 
+        builder: (context)=>FDialog(
+          direction: Axis.horizontal,
+          title: const Text('无法完成RPC配置'),
+          body: const Text('RPC地址为空或不合法'),
+          actions: [
+            FButton(
+              onPress: ()=>Navigator.pop(context), 
+              label: const Text('好的')
+            )
+          ]
+        )
+      );
+      return;
+    }else if(secret.isEmpty && context.mounted){
+      await showAdaptiveDialog(
+        context: context, 
+        builder: (context)=>FDialog(
+          direction: Axis.horizontal,
+          title: const Text('无法完成RPC配置'),
+          body: const Text('密钥不能为空'),
+          actions: [
+            FButton(
+              onPress: ()=>Navigator.pop(context), 
+              label: const Text('好的')
+            )
+          ]
+        )
+      );
+      return;
+    }
+
+    settings.rpc.value=rpc;
+    settings.secret.value=secret;
+    if(context.mounted){
+      mainService.startServive(context);
+    }
+    prefs.setString('rpc', settings.rpc.value);
+    prefs.setString('secret', settings.secret.value);
+  }
+
   // PRC对话框
   Future<void> rpcDialog(BuildContext context) async {
-    final rlt=await showTextInputDialog(
-      title: '配置Aria RPC',
+
+    final rpcController=TextEditingController();
+    final secretController=TextEditingController();
+
+    await showAdaptiveDialog(
       context: context, 
-      textFields: [
-        const DialogTextField(
-          hintText: 'RPC地址'
+      builder: (context)=>FDialog(
+        direction: Axis.horizontal,
+        title: const Text('配置Aria RPC'),
+        body: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState)=>Column(
+            children: [
+              const SizedBox(height: 5,),
+              FTextField(
+                controller: rpcController,
+                hint: 'RPC地址',
+              ),
+              const SizedBox(height: 10,),
+              FTextField(
+                controller: secretController,
+                hint: 'RPC密钥',
+              ),
+            ],
+          ),
         ),
-        const DialogTextField(
-          hintText: 'RPC密钥'
-        ),
-      ],
-      okLabel: '完成',
-      cancelLabel: '取消',
+        actions: [
+          FButton(
+            onPress: ()=>Navigator.pop(context), 
+            style: FButtonStyle.outline,
+            label: const Text('取消')
+          ),
+          FButton(
+            onPress: (){
+              Navigator.pop(context);
+              rpcOkHandler(context, rpcController.text, secretController.text);
+            }, 
+            label: const Text('完成')
+          )
+        ]
+      )
     );
-    if(rlt!=null && (rlt[0].isEmpty || !rlt[0].startsWith('http'))){
-      if(context.mounted){
-        showOkAlertDialog(
-          context: context,
-          title: '无法完成RPC配置',
-          message: 'RPC地址为空或不合法',
-          okLabel: '好的',
-        );
-      }
-      return;
-    }else if(rlt!=null && rlt[1].isEmpty){
-      if(context.mounted){
-        showOkAlertDialog(
-          context: context,
-          title: '无法完成RPC配置',
-          message: '密钥不能为空',
-          okLabel: '好的',
-        );
-      }
-      return;
-    }
-    if(rlt!=null){
-      settings.rpc.value=rlt[0];
-      settings.secret.value=rlt[1];
-      if(context.mounted){
-        mainService.startServive(context);
-      }
-      prefs.setString('rpc', settings.rpc.value);
-      prefs.setString('secret', settings.secret.value);
-    }
   }
 
   // 初始化
@@ -69,16 +110,28 @@ class GetFunctions extends GetxController{
     String? secret=prefs.getString('secret');
     if(rpc==null || secret==null){
       if(context.mounted){
-        final rlt=await showOkCancelAlertDialog(
+        showAdaptiveDialog(
           context: context,
-          title: '没有配置RPC',
-          message: '是否前往设置进行配置?',
-          okLabel: '好的',
-          cancelLabel: '取消'
+          builder: (context)=>FDialog(
+            direction: Axis.horizontal,
+            title: const Text('没有配置RPC'),
+            body: const Text('是否前往设置进行配置'),
+            actions: [
+              FButton(
+                style: FButtonStyle.outline,
+                label: const Text('取消'), 
+                onPress: () => Navigator.of(context).pop()
+              ),
+              FButton(
+                label: const Text('好的'), 
+                onPress: (){
+                  pages.page.value=Pages.settings;
+                  Navigator.of(context).pop();
+                }
+              ),
+            ],
+          )
         );
-        if(rlt==OkCancelResult.ok){
-          pages.page.value=Pages.settings;
-        }
       }
       return;
     }else{

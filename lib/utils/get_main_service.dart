@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
+// import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:aria_remote/utils/request.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 
@@ -141,11 +142,19 @@ class GetMainService extends GetxController{
       });
     }else{
       if(context.mounted){
-        showOkAlertDialog(
+        showAdaptiveDialog(
           context: context,
-          title: '运行服务失败',
-          message: '网络请求有误，请检查RPC配置和网络链接',
-          okLabel: '好的'
+          builder: (context)=>FDialog(
+            direction: Axis.horizontal,
+            title: const Text('运行服务失败'),
+            body: const Text('网络请求有误，请检查RPC配置和网络链接'),
+            actions: [
+              FButton(
+                label: const Text('好的'), 
+                onPress: () => Navigator.of(context).pop()
+              ),
+            ],
+          )
         );
       }
     }

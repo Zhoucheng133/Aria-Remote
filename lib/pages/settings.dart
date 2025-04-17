@@ -1,6 +1,7 @@
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 
 class Settings extends StatefulWidget {
@@ -18,21 +19,25 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
-      ListView(
-        children: [
-          ListTile(
-            title: const Text('RPC 配置'),
-            subtitle: Text(
-              settings.rpc.value.isEmpty?'没有设置':settings.rpc.value,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 13,
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: ListView(
+          padding: const EdgeInsets.all(0),
+          children: [
+            FTile(
+              title: const Text('RPC 配置'),
+              subtitle: Text(
+                settings.rpc.value.isEmpty?'没有设置':settings.rpc.value,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 13,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
-              overflow: TextOverflow.ellipsis,
+              onPress: ()=>functions.rpcDialog(context)
             ),
-            onTap: ()=>functions.rpcDialog(context)
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

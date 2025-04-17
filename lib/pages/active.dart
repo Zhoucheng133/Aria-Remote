@@ -49,6 +49,7 @@ class _ActiveState extends State<Active> {
       children: [
         Obx(()=>
           ListView.builder(
+            padding: const EdgeInsets.all(0),
             itemCount: tasks.active.length,
             itemBuilder: (BuildContext context, int index){
               String name='';

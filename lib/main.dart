@@ -6,8 +6,8 @@ import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   Get.put(GetTasks());
@@ -42,28 +42,17 @@ class _MainAppState extends State<MainApp> {
     final Brightness brightness = MediaQuery.of(context).platformBrightness;
     settings.autoDarkController(brightness == Brightness.dark);
 
-    return Obx(()=>
+    return 
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: settings.darkMode.value ? ThemeData.dark().copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          textTheme: GoogleFonts.notoSansScTextTheme().apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white, 
-          ),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.teal,
-            brightness: Brightness.dark,
+        builder: (context, child) => Obx(()=>
+          FTheme(
+            data: settings.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light,
+            child: child!,
           )
-        ) : ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-            textTheme: GoogleFonts.notoSansScTextTheme(),
         ),
         home: const Home(),
-      )
+      // )
     );
   }
 }

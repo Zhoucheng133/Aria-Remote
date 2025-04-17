@@ -4,7 +4,9 @@ import 'package:aria_remote/pages/settings.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,33 +31,38 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
-      Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          title: Text(pages.nameController()),
+      FScaffold(
+        contentPad: false,
+        header: FHeader(
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10, top: 5),
+            child: Text(
+              pages.nameController(),
+              style: GoogleFonts.notoSansSc(),
+            )
+          ),          
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: pages.page.value.index,
-          onTap: (index){
+        footer: FBottomNavigationBar(
+          index: pages.page.value.index,
+          children: [
+            FBottomNavigationBarItem(
+              icon: const Icon(Icons.download_rounded),
+              label: Text('活跃中', style: GoogleFonts.notoSansSc(),),
+            ),
+            FBottomNavigationBarItem(
+              icon: const Icon(Icons.download_done_rounded),
+              label: Text('已完成', style: GoogleFonts.notoSansSc(),),
+            ),
+            FBottomNavigationBarItem(
+              icon: const Icon(Icons.settings_rounded),
+              label: Text('设置', style: GoogleFonts.notoSansSc(),),
+            ),
+          ],
+          onChange: (index){
             pages.page.value=Pages.values[index];
           },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.download_rounded),
-              label: '活跃中',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.download_done_rounded),
-              label: '已完成',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_rounded),
-              label: '设置',
-            )
-          ]
         ),
-        body: IndexedStack(
+        content: IndexedStack(
           index: pages.page.value.index,
           children: const [
             Active(),
