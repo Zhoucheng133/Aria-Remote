@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:aria_remote/utils/get_main_service.dart';
+import 'package:aria_remote/utils/get_tasks.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
@@ -56,7 +58,18 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
   }
 
   final GetMainService mainService=Get.find();
+  final GetTasks tasks=Get.find();
 
+  void copyLink(){
+    final item=widget.active ? tasks.active[widget.index] : tasks.stopped[widget.index];
+    final uris=item['files'][0]['uris'];
+    final infoHash=item['infoHash'];
+    if(uris.length==0){
+      FlutterClipboard.copy('magnet:?xt=urn:btih:$infoHash');
+    }else{
+      FlutterClipboard.copy(uris[0]['uri']);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +204,10 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.copy),
                               title: const Text('复制链接'),
-                              onPress: () {},
+                              onPress: () {
+                                copyLink();
+                                Navigator.pop(context);
+                              },
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.trash),
