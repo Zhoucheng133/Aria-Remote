@@ -5,6 +5,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TaskItem extends StatefulWidget {
   final String name;
@@ -69,6 +70,154 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
     }else{
       FlutterClipboard.copy(uris[0]['uri']);
     }
+  }
+
+  void showDetail(BuildContext context){
+    showAdaptiveDialog(
+      context: context,
+      builder: (context)=>FDialog(
+        direction: Axis.horizontal,
+        title: Text('任务详情', style: GoogleFonts.notoSansSc(),),
+        body: Obx(()=>
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('任务名称', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.name, 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('下载路径', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? tasks.active[widget.index]['dir']??'' : tasks.stopped[widget.index]['dir']??'', 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('任务状态', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? tasks.active[widget.index]['status']??'' : tasks.stopped[widget.index]['status']??'', 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('总大小', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['totalLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['totalLength']??'0')), 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('已完成大小', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['completedLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['completedLength']??'0')), 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('已上传大小', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['uploadLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['uploadLength']??'0')), 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('正在做种', style: GoogleFonts.notoSansSc(),),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.active ? tasks.active[widget.index]['seeder']??'false' : 'false', 
+                      style: GoogleFonts.notoSansSc(),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          FButton(
+            onPress: ()=>Navigator.pop(context), 
+            label: const Text('好的')
+          )
+        ]
+      )
+    );
   }
 
   @override
@@ -194,7 +343,10 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.info),
                               title: const Text('任务信息'),
-                              onPress: () {},
+                              onPress: () {
+                                Navigator.pop(context);
+                                showDetail(context);
+                              },
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.list),
