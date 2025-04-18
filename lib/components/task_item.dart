@@ -159,11 +159,19 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                 FPopoverMenu(
                   popoverController: controller, 
                   menu: [
-                    FTileGroup(
+                    widget.active ? FTileGroup(
                       children: [
                         FTile(
                           prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
                           title: Text(widget.status=='active' ? '暂停' : '继续'),
+                          onPress: (){},
+                        )
+                      ]
+                    ) : FTileGroup(
+                      children: [
+                        FTile(
+                          prefixIcon: FIcon(FAssets.icons.rotateCw),
+                          title: const Text('重新下载'),
                           onPress: (){},
                         )
                       ]
