@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:get/get.dart';
 
 class TaskItem extends StatefulWidget {
   final String name;
@@ -54,11 +56,18 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
   }
 
   late FPopoverController controller;
+  final GetMainService mainService=Get.find();
 
   @override
   void initState() {
     super.initState();
     controller = FPopoverController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -157,14 +166,23 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                   ],
                 ) : Container(),
                 FPopoverMenu(
-                  popoverController: controller, 
+                  popoverController: controller,
+                  shift: FPortalShift.flip,
+                  childAnchor: Alignment.bottomRight,
                   menu: [
                     widget.active ? FTileGroup(
                       children: [
                         FTile(
                           prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
                           title: Text(widget.status=='active' ? '暂停' : '继续'),
-                          onPress: (){},
+                          onPress: (){
+                            if(widget.status=='active'){
+                              mainService.pauseTask(widget.gid);
+                            }else{
+                              mainService.continueTask(widget.gid);
+                            }
+                            controller.hide();
+                          },
                         )
                       ]
                     ) : FTileGroup(
@@ -204,7 +222,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                         ),
                       ],
                     ),
-                  ], 
+                  ],
                   child: FButton.icon(
                     style: FButtonStyle.ghost,
                     onPress: () {

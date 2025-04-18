@@ -18,6 +18,16 @@ class GetMainService extends GetxController{
   final GetTasks tasks=Get.find();
 
   late Timer interval;
+
+  Future<void> pauseTask(String gid) async {
+    await requests.pauseTask(gid);
+    serviceMain();
+  }
+
+  Future<void> continueTask(String gid) async {
+    await requests.continueTask(gid);
+    serviceMain();
+  }
   
   // 请求活跃的任务
   Future<void> tellActive() async {
@@ -120,6 +130,7 @@ class GetMainService extends GetxController{
     }
   }
 
+  // 主线程
   void serviceMain(){
     if(pages.page.value==Pages.active){
       tellActive();
@@ -128,12 +139,14 @@ class GetMainService extends GetxController{
     }
   }
 
+  // 销毁主线程
   void destoryServive(){
     try {
       interval.cancel();
     } catch (_) {}
   }
 
+  // 开始服务
   Future<void> startServive(BuildContext context) async {
     destoryServive();
     if(await requests.getVersion()!=null){
