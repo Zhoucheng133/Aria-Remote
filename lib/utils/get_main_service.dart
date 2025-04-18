@@ -19,11 +19,25 @@ class GetMainService extends GetxController{
 
   late Timer interval;
 
+  // 移除任务
+  Future<void> remove(String gid) async {
+    await Requests().removeTask(gid);
+    serviceMain();
+  }
+
+  // 移除已完成的任务
+  Future<void> removeFinishedTask(String gid) async {
+    await Requests().removeFinishedTask(gid);
+    serviceMain();
+  }
+
+  // 暂停任务
   Future<void> pauseTask(String gid) async {
     await requests.pauseTask(gid);
     serviceMain();
   }
 
+  // 继续任务
   Future<void> continueTask(String gid) async {
     await requests.continueTask(gid);
     serviceMain();

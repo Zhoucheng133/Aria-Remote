@@ -195,8 +195,16 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.trash),
-                              title: const Text('删除'),
-                              onPress: () {},
+                              title: const Text('移除'),
+                              onPress: () {
+                                if(widget.active){
+                                  mainService.remove(widget.gid);
+                                }else{
+                                  mainService.removeFinishedTask(widget.gid);
+                                }
+                                
+                                Navigator.pop(context);
+                              },
                             ),
                           ],
                         ),
