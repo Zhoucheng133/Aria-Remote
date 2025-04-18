@@ -55,20 +55,8 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
     }
   }
 
-  late FPopoverController controller;
   final GetMainService mainService=Get.find();
 
-  @override
-  void initState() {
-    super.initState();
-    controller = FPopoverController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,16 +65,6 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
       height: 60,
       child: Stack(
         children: [
-          widget.active ? FractionallySizedBox(
-            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
-            heightFactor: 1.0,
-            child: Container(color: Colors.teal[50]),
-          ) : Container(),
-          !widget.active && widget.completedLength/widget.totalLength!=1 ? FractionallySizedBox(
-            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
-            heightFactor: 1.0,
-            child: Container(color: Colors.orange[50]),
-          ) : Container(),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
             child: Row(
@@ -114,7 +92,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                     ],
                   ),
                 ),
-                widget.active ? Column(
+                widget.active ? widget.status=='active' ? Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -164,74 +142,72 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                       ),
                     ):Container()
                   ],
-                ) : Container(),
-                FPopoverMenu(
-                  popoverController: controller,
-                  shift: FPortalShift.flip,
-                  childAnchor: Alignment.bottomRight,
-                  menu: [
-                    widget.active ? FTileGroup(
-                      children: [
-                        FTile(
-                          prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
-                          title: Text(widget.status=='active' ? '暂停' : '继续'),
-                          onPress: (){
-                            if(widget.status=='active'){
-                              mainService.pauseTask(widget.gid);
-                            }else{
-                              mainService.continueTask(widget.gid);
-                            }
-                            controller.hide();
-                          },
-                        )
-                      ]
-                    ) : FTileGroup(
-                      children: [
-                        FTile(
-                          prefixIcon: FIcon(FAssets.icons.rotateCw),
-                          title: const Text('重新下载'),
-                          onPress: (){},
-                        )
-                      ]
-                    ),
-                    FTileGroup(
-                      children: [
-                        FTile(
-                          prefixIcon: FIcon(FAssets.icons.info),
-                          title: const Text('任务信息'),
-                          onPress: () {},
-                        ),
-                        FTile(
-                          prefixIcon: FIcon(FAssets.icons.list),
-                          title: const Text('文件列表'),
-                          onPress: () {},
-                        ),
-                        FTile(
-                          prefixIcon: FIcon(FAssets.icons.copy),
-                          title: const Text('复制链接'),
-                          onPress: () {},
-                        ),
-                      ],
-                    ),
-                    FTileGroup(
-                      children: [
-                        FTile(
-                          prefixIcon: FIcon(FAssets.icons.trash),
-                          title: const Text('删除'),
-                          onPress: () {},
-                        ),
-                      ],
-                    ),
+                ) : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FIcon(
+                      widget.status=='paused' ? FAssets.icons.circlePause : FAssets.icons.loader,
+                      size: 15,
+                      color: Colors.grey,
+                    )
                   ],
-                  child: FButton.icon(
-                    style: FButtonStyle.ghost,
-                    onPress: () {
-                      controller.toggle();
-                    },
-                    child: const Icon(
-                      Icons.more_vert_rounded
-                    ),
-                  )
+                ) : Container(),
+                FButton.icon(
+                  style: FButtonStyle.ghost,
+                  onPress: ()=>showFSheet(
+                    context: context,
+                    side: FLayout.btt,
+                    builder: (context)=>Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FTileGroup(
+                          children: [
+                            if(widget.active && (widget.status=='active' || widget.status=='paused')) FTile(
+                              prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
+                              title: Text(widget.status=='active' ? '暂停' : '继续'),
+                              onPress: (){
+                                if(widget.status=='active'){
+                                  mainService.pauseTask(widget.gid);
+                                }else{
+                                  mainService.continueTask(widget.gid);
+                                }
+                                Navigator.pop(context);
+                              },
+                            ) else if(!widget.active) FTile(
+                              prefixIcon: FIcon(FAssets.icons.rotateCw),
+                              title: const Text('重新下载'),
+                              onPress: (){},
+                            ),
+                            FTile(
+                              prefixIcon: FIcon(FAssets.icons.info),
+                              title: const Text('任务信息'),
+                              onPress: () {},
+                            ),
+                            FTile(
+                              prefixIcon: FIcon(FAssets.icons.list),
+                              title: const Text('文件列表'),
+                              onPress: () {},
+                            ),
+                            FTile(
+                              prefixIcon: FIcon(FAssets.icons.copy),
+                              title: const Text('复制链接'),
+                              onPress: () {},
+                            ),
+                            FTile(
+                              prefixIcon: FIcon(FAssets.icons.trash),
+                              title: const Text('删除'),
+                              onPress: () {},
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).padding.bottom,
+                          color: Colors.white,
+                        )
+                      ],
+                    )
+                  ), 
+                  child: const Icon(Icons.more_vert)
                 )
               ],
             )
