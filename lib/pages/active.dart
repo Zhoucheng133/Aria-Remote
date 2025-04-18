@@ -73,20 +73,25 @@ class _ActiveState extends State<Active> {
               } catch (_) {
                 name=p.basename(tasks.active[index]['files'][0]['path']);
               }
-              return TaskItem(
-                name: name, 
-                totalLength: totalLength, 
-                completedLength: completedLength, 
-                dir: dir, 
-                downloadSpeed: downloadSpeed, 
-                gid: gid, 
-                status: status, 
-                selectMode: select, 
-                changeSelectStatus: ()=>changeSelectStatus(gid), 
-                checked: checked(gid), 
-                active: true, 
-                index: index,
-                uploadSpeed: uploadSpeed,
+              return Column(
+                children: [
+                  TaskItem(
+                    name: name, 
+                    totalLength: totalLength, 
+                    completedLength: completedLength, 
+                    dir: dir, 
+                    downloadSpeed: downloadSpeed, 
+                    gid: gid, 
+                    status: status, 
+                    selectMode: select, 
+                    changeSelectStatus: ()=>changeSelectStatus(gid), 
+                    checked: checked(gid), 
+                    active: true, 
+                    index: index,
+                    uploadSpeed: uploadSpeed,
+                  ),
+                  index==tasks.active.length-1 ? const SizedBox(height: 70,) : Container(),
+                ],
               );
             }
           )
