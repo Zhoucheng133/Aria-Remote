@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart' as path;
 
 class TaskItem extends StatefulWidget {
   final String name;
@@ -218,6 +219,26 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
         ]
       )
     );
+  }
+
+  void showFiles(BuildContext context){
+    List list=[];
+    for (var item in widget.active ? tasks.active[widget.index]['files']??[] : tasks.stopped[widget.index]['files']??[]) {
+      String name="";
+      try {
+        name=item['path']==null ? "" : path.basename(item['path']);
+      } catch (_) {}
+      String size='0 B';
+      try {
+        int length=int.parse(item['length']);
+        size=convertSize(length);
+      } catch (_) {}
+      list.add({
+        'name': name,
+        'size': size,
+      });
+    }
+    // TODO 显示对话框
   }
 
   @override
