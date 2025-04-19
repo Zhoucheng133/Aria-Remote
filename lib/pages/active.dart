@@ -105,13 +105,15 @@ class _ActiveState extends State<Active> {
               onPress: settings.isLogin() ? (){
                 // TODO 添加任务
               } : null, 
-              child: const SizedBox(
+              child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Icon(
-                  Icons.add_rounded,
-                  color: Colors.white,
-                ),
+                child: Center(
+                  child: FIcon(
+                    FAssets.icons.plus,
+                    size: 30,
+                  ),
+                )
               )
             )
           )

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:aria_remote/utils/get_main_service.dart';
+import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
 
   final GetMainService mainService=Get.find();
   final GetTasks tasks=Get.find();
+  final GetSettings settings=Get.find();
 
   void copyLink(){
     final item=widget.active ? tasks.active[widget.index] : tasks.stopped[widget.index];
@@ -329,8 +331,8 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            widget.uploadSpeed!=0 ? const Icon(
-                              Icons.arrow_upward_rounded,
+                            widget.uploadSpeed!=0 ? FIcon(
+                              FAssets.icons.arrowUp,
                               size: 14,
                             ) : Container(),
                             const SizedBox(width: 3,),
@@ -343,8 +345,8 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                           ],
                         ) : Container(),
                         const SizedBox(width: 10,),
-                        const Icon(
-                          Icons.arrow_downward_rounded,
+                        FIcon(
+                          FAssets.icons.arrowDown,
                           size: 14,
                         ),
                         const SizedBox(width: 3,),
@@ -442,14 +444,18 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ),
                           ],
                         ),
-                        Container(
-                          height: MediaQuery.of(context).padding.bottom,
-                          color: Colors.white,
+                        Obx(()=>
+                          Container(
+                            height: MediaQuery.of(context).padding.bottom,
+                            color: settings.darkMode.value ? Colors.black : Colors.white,
+                          )
                         )
                       ],
                     )
                   ), 
-                  child: const Icon(Icons.more_vert)
+                  child: FIcon(
+                    FAssets.icons.ellipsisVertical,
+                  )
                 )
               ],
             )

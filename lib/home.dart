@@ -83,15 +83,15 @@ class _HomeState extends State<Home> {
           index: pages.page.value.index,
           children: [
             FBottomNavigationBarItem(
-              icon: const Icon(Icons.download_rounded),
+              icon: FIcon(FAssets.icons.download),
               label: Text('活跃中', style: GoogleFonts.notoSansSc(),),
             ),
             FBottomNavigationBarItem(
-              icon: const Icon(Icons.download_done_rounded),
+              icon: FIcon(FAssets.icons.listCheck),
               label: Text('已完成', style: GoogleFonts.notoSansSc(),),
             ),
             FBottomNavigationBarItem(
-              icon: const Icon(Icons.settings_rounded),
+              icon: FIcon(FAssets.icons.settings),
               label: Text('设置', style: GoogleFonts.notoSansSc(),),
             ),
           ],
