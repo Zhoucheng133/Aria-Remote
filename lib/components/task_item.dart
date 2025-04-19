@@ -238,7 +238,49 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
         'size': size,
       });
     }
-    // TODO 显示对话框
+    showAdaptiveDialog(
+      context: context,
+      builder: (context)=>FDialog(
+        direction: Axis.horizontal,
+        title: Text('文件列表', style: GoogleFonts.notoSansSc(),), 
+        body: SizedBox(
+          height: 400,
+          width: 300,
+          child: ListView.builder(
+            padding: const EdgeInsets.all(0),
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int index)=>SizedBox(
+              height: 30,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      list[index]['name'],
+                      style: GoogleFonts.notoSansSc(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      list[index]['size'],
+                      style: GoogleFonts.notoSansSc(),
+                      textAlign: TextAlign.end,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ),
+        ),
+        actions: [
+          FButton(
+            onPress: ()=>Navigator.pop(context), 
+            label: const Text('好的')
+          )
+        ],
+      )
+    );
   }
 
   @override
@@ -372,7 +414,10 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.list),
                               title: const Text('文件列表'),
-                              onPress: () {},
+                              onPress: () {
+                                Navigator.pop(context);
+                                showFiles(context);
+                              },
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.copy),
