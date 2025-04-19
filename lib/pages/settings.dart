@@ -24,18 +24,35 @@ class _SettingsState extends State<Settings> {
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [
-            FTile(
-              title: const Text('RPC 配置'),
-              subtitle: Text(
-                settings.rpc.value.isEmpty?'没有设置':settings.rpc.value,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 13,
+            FTileGroup(
+              label: const Text('Aria 配置'),
+              children: [
+                FTile(
+                  title: const Text('RPC 配置'),
+                  subtitle: Text(
+                    settings.rpc.value.isEmpty?'没有设置':settings.rpc.value,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  onPress: ()=>functions.rpcDialog(context)
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              onPress: ()=>functions.rpcDialog(context)
+              ]
             ),
+            FTileGroup(
+              label: const Text('应用设置'),
+              children: [
+                FTile(
+                  title: const Text('关于Aria Remote'),
+                  subtitle: Text(settings.version.value),
+                  onPress: (){
+                    // TODO 关于页面
+                  },
+                )
+              ]
+            )
           ],
         ),
       ),
