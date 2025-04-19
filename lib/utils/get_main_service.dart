@@ -182,7 +182,10 @@ class GetMainService extends GetxController{
           builder: (context)=>FDialog(
             direction: Axis.horizontal,
             title: const Text('运行服务失败'),
-            body: const Text('网络请求有误，请检查RPC配置和网络链接'),
+            body: const Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: Text('网络请求有误，请检查RPC配置和网络链接'),
+            ),
             actions: [
               FButton(
                 label: const Text('好的'), 

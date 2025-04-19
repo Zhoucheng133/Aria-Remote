@@ -21,7 +21,10 @@ class GetFunctions extends GetxController{
         builder: (context)=>FDialog(
           direction: Axis.horizontal,
           title: const Text('无法完成RPC配置'),
-          body: const Text('RPC地址为空或不合法'),
+          body: const Padding(
+            padding: EdgeInsets.only(top: 5, bottom: 5),
+            child: Text('RPC地址为空或不合法'),
+          ),
           actions: [
             FButton(
               onPress: ()=>Navigator.pop(context), 
@@ -36,7 +39,10 @@ class GetFunctions extends GetxController{
         context: context, 
         builder: (context)=>FDialog(
           direction: Axis.horizontal,
-          title: const Text('无法完成RPC配置'),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 5, bottom: 5),
+            child: Text('无法完成RPC配置'),
+          ),
           body: const Text('密钥不能为空'),
           actions: [
             FButton(
@@ -121,7 +127,10 @@ class GetFunctions extends GetxController{
           builder: (context)=>FDialog(
             direction: Axis.horizontal,
             title: const Text('没有配置RPC'),
-            body: const Text('是否前往设置进行配置'),
+            body: const Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: Text('是否前往设置进行配置'),
+            ),
             actions: [
               FButton(
                 style: FButtonStyle.outline,

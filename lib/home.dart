@@ -79,7 +79,10 @@ class _HomeState extends State<Home> {
                   builder: (context)=>FDialog(
                     direction: Axis.horizontal,
                     title: const Text('清空所有已完成的任务'),
-                    body: const Text('这个操作无法撤销，确定要继续吗?'),
+                    body: const Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 5),
+                      child: Text('这个操作无法撤销，确定要继续吗?'),
+                    ),
                     actions: [
                       FButton(
                         style: FButtonStyle.outline,
