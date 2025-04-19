@@ -66,7 +66,17 @@ class _HomeState extends State<Home> {
                   mainService.tellStopped();
                 }
               }
-            )
+            ),
+            pages.page.value==Pages.finished ? const SizedBox(width: 10,) : Container(),
+            pages.page.value==Pages.finished ? FHeaderAction(
+              icon: FIcon(
+                FAssets.icons.trash,
+                size: 20,
+              ),
+              onPress: (){
+                // TODO 清除所有已完成任务
+              }
+            ) : Container()
           ],
         ),
         footer: FBottomNavigationBar(
