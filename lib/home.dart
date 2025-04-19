@@ -74,7 +74,28 @@ class _HomeState extends State<Home> {
                 size: 20,
               ),
               onPress: (){
-                // TODO 清除所有已完成任务
+                showAdaptiveDialog(
+                  context: context, 
+                  builder: (context)=>FDialog(
+                    direction: Axis.horizontal,
+                    title: const Text('清空所有已完成的任务'),
+                    body: const Text('这个操作无法撤销，确定要继续吗?'),
+                    actions: [
+                      FButton(
+                        style: FButtonStyle.outline,
+                        onPress: ()=>Navigator.pop(context), 
+                        label: const Text('取消')
+                      ),
+                      FButton(
+                        onPress: (){
+                          mainService.clearFinished();
+                          Navigator.pop(context);
+                        }, 
+                        label: const Text('删除')
+                      )
+                    ]
+                  )
+                );
               }
             ) : Container()
           ],
