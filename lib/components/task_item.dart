@@ -403,7 +403,9 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ) else if(!widget.active) FTile(
                               prefixIcon: FIcon(FAssets.icons.rotateCw),
                               title: const Text('重新下载'),
-                              onPress: (){},
+                              onPress: (){
+                                // TODO 重新下载
+                              },
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.info),
