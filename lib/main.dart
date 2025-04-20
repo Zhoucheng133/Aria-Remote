@@ -1,4 +1,5 @@
 import 'package:aria_remote/home.dart';
+import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
@@ -13,6 +14,7 @@ void main() {
   Get.put(GetTasks());
   Get.put(GetPages());
   Get.put(GetSettings());
+  Get.put(GetDialogs());
   Get.put(GetMainService());
   Get.put(GetFunctions());
   runApp(const MainApp());

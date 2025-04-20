@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
@@ -30,7 +31,7 @@ class TaskItem extends StatefulWidget {
   State<TaskItem> createState() => _TaskItemState();
 }
 
-class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin{
+class _TaskItemState extends State<TaskItem>{
 
   String convertSize(int bytes) {
     try {
@@ -63,6 +64,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
   final GetMainService mainService=Get.find();
   final GetTasks tasks=Get.find();
   final GetSettings settings=Get.find();
+  final GetDialogs d=Get.find();
 
   void copyLink(){
     final item=widget.active ? tasks.active[widget.index] : tasks.stopped[widget.index];
@@ -76,150 +78,142 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
   }
 
   void showDetail(BuildContext context){
-    showAdaptiveDialog(
+
+    d.showOkDialogRaw(
       context: context,
-      builder: (context)=>FDialog(
-        direction: Axis.horizontal,
-        title: Text('任务详情', style: GoogleFonts.notoSansSc(),),
-        body: Obx(()=>
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('任务名称', style: GoogleFonts.notoSansSc(),),
+      title: '任务详情',
+      child: Obx(()=>
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('任务名称', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.name, 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.name, 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('下载路径', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('下载路径', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? tasks.active[widget.index]['dir']??'' : tasks.stopped[widget.index]['dir']??'', 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? tasks.active[widget.index]['dir']??'' : tasks.stopped[widget.index]['dir']??'', 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('任务状态', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('任务状态', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? tasks.active[widget.index]['status']??'' : tasks.stopped[widget.index]['status']??'', 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? tasks.active[widget.index]['status']??'' : tasks.stopped[widget.index]['status']??'', 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('总大小', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('总大小', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? convertSize(int.parse(tasks.active[widget.index]['totalLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['totalLength']??'0')), 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['totalLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['totalLength']??'0')), 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('已完成大小', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('已完成大小', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? convertSize(int.parse(tasks.active[widget.index]['completedLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['completedLength']??'0')), 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['completedLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['completedLength']??'0')), 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('已上传大小', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('已上传大小', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? convertSize(int.parse(tasks.active[widget.index]['uploadLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['uploadLength']??'0')), 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? convertSize(int.parse(tasks.active[widget.index]['uploadLength']??'0')) : convertSize(int.parse(tasks.stopped[widget.index]['uploadLength']??'0')), 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: Text('正在做种', style: GoogleFonts.notoSansSc(),),
+                )
+              ],
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('正在做种', style: GoogleFonts.notoSansSc(),),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.active ? tasks.active[widget.index]['seeder']??'false' : 'false', 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      widget.active ? tasks.active[widget.index]['seeder']??'false' : 'false', 
-                      style: GoogleFonts.notoSansSc(),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                )
+              ],
+            ),
+          ],
         ),
-        actions: [
-          FButton(
-            onPress: ()=>Navigator.pop(context), 
-            label: Text('好的', style: GoogleFonts.notoSansSc(),)
-          )
-        ]
-      )
+      ),
     );
   }
 
@@ -240,48 +234,39 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
         'size': size,
       });
     }
-    showAdaptiveDialog(
-      context: context,
-      builder: (context)=>FDialog(
-        direction: Axis.horizontal,
-        title: Text('文件列表', style: GoogleFonts.notoSansSc(),), 
-        body: SizedBox(
-          height: 400,
-          width: 300,
-          child: ListView.builder(
-            padding: const EdgeInsets.all(0),
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int index)=>SizedBox(
-              height: 30,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      list[index]['name'],
-                      style: GoogleFonts.notoSansSc(),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+    d.showOkDialogRaw(
+      context: context, 
+      title: '文件列表', 
+      child: SizedBox(
+        height: 400,
+        width: 300,
+        child: ListView.builder(
+          padding: const EdgeInsets.all(0),
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index)=>SizedBox(
+            height: 30,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    list[index]['name'],
+                    style: GoogleFonts.notoSansSc(),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      list[index]['size'],
-                      style: GoogleFonts.notoSansSc(),
-                      textAlign: TextAlign.end,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ),
-        ),
-        actions: [
-          FButton(
-            onPress: ()=>Navigator.pop(context), 
-            label: Text('好的', style: GoogleFonts.notoSansSc())
+                ),
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    list[index]['size'],
+                    style: GoogleFonts.notoSansSc(),
+                    textAlign: TextAlign.end,
+                  ),
+                )
+              ],
+            ),
           )
-        ],
-      )
+        ),
+      ),
     );
   }
 

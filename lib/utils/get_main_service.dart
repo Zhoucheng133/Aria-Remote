@@ -1,14 +1,13 @@
 import 'dart:async';
 
 // import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:aria_remote/utils/request.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as path;
 
 class GetMainService extends GetxController{
@@ -17,6 +16,7 @@ class GetMainService extends GetxController{
   final GetSettings settings=Get.find();
   final Requests requests=Requests();
   final GetTasks tasks=Get.find();
+  final GetDialogs d=Get.find();
 
   late Timer interval;
 
@@ -178,22 +178,10 @@ class GetMainService extends GetxController{
       tasks.active.value=[];
       tasks.stopped.value=[];
       if(context.mounted){
-        showAdaptiveDialog(
-          context: context,
-          builder: (context)=>FDialog(
-            direction: Axis.horizontal,
-            title: Text('运行服务失败', style: GoogleFonts.notoSansSc(),),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 5),
-              child: Text('网络请求有误，请检查RPC配置和网络链接', style: GoogleFonts.notoSansSc()),
-            ),
-            actions: [
-              FButton(
-                label: Text('好的', style: GoogleFonts.notoSansSc()), 
-                onPress: () => Navigator.of(context).pop()
-              ),
-            ],
-          )
+        d.showOkDialog(
+          context: context, 
+          title: '运行服务失败', 
+          content: '网络请求有误，请检查RPC配置和网络链接'
         );
       }
     }

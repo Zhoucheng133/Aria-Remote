@@ -1,6 +1,7 @@
 import 'package:aria_remote/pages/active.dart';
 import 'package:aria_remote/pages/finished.dart';
 import 'package:aria_remote/pages/settings.dart';
+import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_pages.dart';
@@ -21,6 +22,7 @@ class _HomeState extends State<Home> {
   final GetFunctions functions=Get.find();
   final GetPages pages=Get.find();
   final GetMainService mainService=Get.find();
+  final GetDialogs d=Get.find();
 
   @override
   void initState() {
@@ -73,32 +75,16 @@ class _HomeState extends State<Home> {
                 FAssets.icons.trash,
                 size: 20,
               ),
-              onPress: (){
-                showAdaptiveDialog(
+              onPress: () async {
+                final data=await d.showOkCancelDialog(
                   context: context, 
-                  builder: (context)=>FDialog(
-                    direction: Axis.horizontal,
-                    title: Text('清空所有已完成的任务', style: GoogleFonts.notoSansSc()),
-                    body: Padding(
-                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                      child: Text('这个操作无法撤销，确定要继续吗?', style: GoogleFonts.notoSansSc()),
-                    ),
-                    actions: [
-                      FButton(
-                        style: FButtonStyle.outline,
-                        onPress: ()=>Navigator.pop(context), 
-                        label: Text('取消', style: GoogleFonts.notoSansSc())
-                      ),
-                      FButton(
-                        onPress: (){
-                          mainService.clearFinished();
-                          Navigator.pop(context);
-                        }, 
-                        label: Text('删除', style: GoogleFonts.notoSansSc())
-                      )
-                    ]
-                  )
+                  title: '清空所有已完成的任务', 
+                  content: '这个操作无法撤销，确定要继续吗?',
+                  okText: '删除'
                 );
+                if(data){
+                  mainService.clearFinished();
+                }
               }
             ) : Container()
           ],
