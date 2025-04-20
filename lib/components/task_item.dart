@@ -289,6 +289,16 @@ class _TaskItemState extends State<TaskItem>{
       height: 60,
       child: Stack(
         children: [
+          widget.active ? FractionallySizedBox(
+            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
+            heightFactor: 1.0,
+            child: Container(color: Colors.teal[50]),
+          ) : Container(),
+          !widget.active && widget.completedLength/widget.totalLength!=1 ? FractionallySizedBox(
+            widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
+            heightFactor: 1.0,
+            child: Container(color: Colors.orange[50]),
+          ) : Container(),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
             child: Row(
