@@ -20,6 +20,12 @@ class GetMainService extends GetxController{
 
   late Timer interval;
 
+  // 添加任务
+  Future<void> addTask(String url) async {
+    await Requests().addTask([url]);
+    serviceMain();
+  }
+
   // 清空所有已完成的任务
   Future<void> clearFinished() async {
     await Requests().clearFinished();

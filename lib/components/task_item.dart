@@ -46,6 +46,18 @@ class _TaskItemState extends State<TaskItem>{
     }
   }
 
+  void reAddTask(){
+    final item=widget.active ? tasks.active[widget.index] : tasks.stopped[widget.index];
+    final uris=item['files'][0]['uris'];
+    final infoHash=item['infoHash'];
+    if(uris.length==0){
+      mainService.addTask('magnet:?xt=urn:btih:$infoHash');
+    }else{
+      mainService.addTask(uris[0]['uri']);
+    }
+    mainService.removeFinishedTask(widget.gid);
+  }
+
   String formatDuration(int seconds) {
     int hours = seconds ~/ 3600;
     int minutes = (seconds % 3600) ~/ 60;
@@ -389,7 +401,8 @@ class _TaskItemState extends State<TaskItem>{
                               prefixIcon: FIcon(FAssets.icons.rotateCw),
                               title: Text('重新下载', style: GoogleFonts.notoSansSc()),
                               onPress: (){
-                                // TODO 重新下载
+                                Navigator.pop(context);
+                                reAddTask();
                               },
                             ),
                             FTile(
