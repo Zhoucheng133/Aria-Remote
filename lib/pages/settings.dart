@@ -3,6 +3,7 @@ import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -25,13 +26,13 @@ class _SettingsState extends State<Settings> {
           padding: const EdgeInsets.all(0),
           children: [
             FTileGroup(
-              label: const Text('Aria 配置'),
+              label: Text('Aria 配置', style: GoogleFonts.notoSansSc(),),
               children: [
                 FTile(
-                  title: const Text('RPC 配置'),
+                  title: Text('RPC 配置', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(
                     settings.rpc.value.isEmpty?'没有设置':settings.rpc.value,
-                    style: const TextStyle(
+                    style: GoogleFonts.notoSansSc(
                       color: Colors.grey,
                       fontSize: 13,
                     ),
@@ -42,11 +43,11 @@ class _SettingsState extends State<Settings> {
               ]
             ),
             FTileGroup(
-              label: const Text('应用设置'),
+              label: Text('应用设置', style: GoogleFonts.notoSansSc(),),
               children: [
                 FTile(
-                  title: const Text('关于Aria Remote'),
-                  subtitle: Text(settings.version.value),
+                  title: Text('关于Aria Remote', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.version.value, style: GoogleFonts.notoSansSc(),),
                   onPress: (){
                     // TODO 关于页面
                   },

@@ -216,7 +216,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
         actions: [
           FButton(
             onPress: ()=>Navigator.pop(context), 
-            label: const Text('好的')
+            label: Text('好的', style: GoogleFonts.notoSansSc(),)
           )
         ]
       )
@@ -303,7 +303,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                     children: [
                       Text(
                         widget.name,
-                        style: const TextStyle(
+                        style: GoogleFonts.notoSansSc(
                           fontSize: 15,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -311,7 +311,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                       const SizedBox(height: 5,),
                       Text(
                         convertSize(widget.totalLength),
-                        style: TextStyle(
+                        style: GoogleFonts.notoSansSc(
                           color: Colors.grey[600],
                           fontSize: 12
                         ),
@@ -338,7 +338,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             const SizedBox(width: 3,),
                             Text(
                               widget.uploadSpeed==0 ? '' : '${convertSize(widget.uploadSpeed!)}/s',
-                              style: const TextStyle(
+                              style: GoogleFonts.notoSansSc(
                                 fontSize: 12
                               ),
                             ),
@@ -352,7 +352,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                         const SizedBox(width: 3,),
                         Text(
                           widget.downloadSpeed==0 ? '0 B/s' : '${convertSize(widget.downloadSpeed)}/s',
-                          style: const TextStyle(
+                          style: GoogleFonts.notoSansSc(
                             fontSize: 12
                           ),
                         ),
@@ -362,7 +362,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         widget.downloadSpeed==0 ? '--:--' : formatDuration(((widget.totalLength - widget.completedLength) > 0 ? widget.totalLength - widget.completedLength : 0)~/widget.downloadSpeed),
-                        style: TextStyle(
+                        style: GoogleFonts.notoSansSc(
                           fontSize: 12,
                           color: Colors.grey[600]
                         ),
