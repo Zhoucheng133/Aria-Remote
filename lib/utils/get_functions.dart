@@ -4,6 +4,7 @@ import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetFunctions extends GetxController{
@@ -20,15 +21,15 @@ class GetFunctions extends GetxController{
         context: context, 
         builder: (context)=>FDialog(
           direction: Axis.horizontal,
-          title: const Text('无法完成RPC配置'),
-          body: const Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 5),
-            child: Text('RPC地址为空或不合法'),
+          title: Text('无法完成RPC配置', style: GoogleFonts.notoSansSc()),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Text('RPC地址为空或不合法', style: GoogleFonts.notoSansSc()),
           ),
           actions: [
             FButton(
               onPress: ()=>Navigator.pop(context), 
-              label: const Text('好的')
+              label: Text('好的', style: GoogleFonts.notoSansSc())
             )
           ]
         )
@@ -39,15 +40,15 @@ class GetFunctions extends GetxController{
         context: context, 
         builder: (context)=>FDialog(
           direction: Axis.horizontal,
-          title: const Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 5),
-            child: Text('无法完成RPC配置'),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Text('无法完成RPC配置', style: GoogleFonts.notoSansSc()),
           ),
-          body: const Text('密钥不能为空'),
+          body: Text('密钥不能为空', style: GoogleFonts.notoSansSc()),
           actions: [
             FButton(
               onPress: ()=>Navigator.pop(context), 
-              label: const Text('好的')
+              label: Text('好的', style: GoogleFonts.notoSansSc())
             )
           ]
         )
@@ -74,7 +75,7 @@ class GetFunctions extends GetxController{
       context: context, 
       builder: (context)=>FDialog(
         direction: Axis.horizontal,
-        title: const Text('配置Aria RPC'),
+        title: Text('配置Aria RPC', style: GoogleFonts.notoSansSc()),
         body: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState)=>Column(
             children: [
@@ -101,14 +102,14 @@ class GetFunctions extends GetxController{
           FButton(
             onPress: ()=>Navigator.pop(context), 
             style: FButtonStyle.outline,
-            label: const Text('取消')
+            label: Text('取消', style: GoogleFonts.notoSansSc())
           ),
           FButton(
             onPress: (){
               Navigator.pop(context);
               rpcOkHandler(context, rpcController.text, secretController.text);
             }, 
-            label: const Text('完成')
+            label: Text('完成', style: GoogleFonts.notoSansSc())
           )
         ]
       )
@@ -126,19 +127,19 @@ class GetFunctions extends GetxController{
           context: context,
           builder: (context)=>FDialog(
             direction: Axis.horizontal,
-            title: const Text('没有配置RPC'),
-            body: const Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text('是否前往设置进行配置'),
+            title: Text('没有配置RPC', style: GoogleFonts.notoSansSc()),
+            body: Padding(
+              padding: const EdgeInsets.only(top: 5, bottom: 5),
+              child: Text('是否前往设置进行配置', style: GoogleFonts.notoSansSc()),
             ),
             actions: [
               FButton(
                 style: FButtonStyle.outline,
-                label: const Text('取消'), 
+                label: Text('取消', style: GoogleFonts.notoSansSc()), 
                 onPress: () => Navigator.of(context).pop()
               ),
               FButton(
-                label: const Text('好的'), 
+                label: Text('好的', style: GoogleFonts.notoSansSc()), 
                 onPress: (){
                   pages.page.value=Pages.settings;
                   Navigator.of(context).pop();

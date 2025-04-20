@@ -8,6 +8,7 @@ import 'package:aria_remote/utils/request.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as path;
 
 class GetMainService extends GetxController{
@@ -181,14 +182,14 @@ class GetMainService extends GetxController{
           context: context,
           builder: (context)=>FDialog(
             direction: Axis.horizontal,
-            title: const Text('运行服务失败'),
-            body: const Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text('网络请求有误，请检查RPC配置和网络链接'),
+            title: Text('运行服务失败', style: GoogleFonts.notoSansSc(),),
+            body: Padding(
+              padding: const EdgeInsets.only(top: 5, bottom: 5),
+              child: Text('网络请求有误，请检查RPC配置和网络链接', style: GoogleFonts.notoSansSc()),
             ),
             actions: [
               FButton(
-                label: const Text('好的'), 
+                label: Text('好的', style: GoogleFonts.notoSansSc()), 
                 onPress: () => Navigator.of(context).pop()
               ),
             ],

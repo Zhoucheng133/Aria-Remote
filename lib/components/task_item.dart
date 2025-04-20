@@ -278,7 +278,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
         actions: [
           FButton(
             onPress: ()=>Navigator.pop(context), 
-            label: const Text('好的')
+            label: Text('好的', style: GoogleFonts.notoSansSc())
           )
         ],
       )
@@ -391,7 +391,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                           children: [
                             if(widget.active && (widget.status=='active' || widget.status=='paused')) FTile(
                               prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
-                              title: Text(widget.status=='active' ? '暂停' : '继续'),
+                              title: Text(widget.status=='active' ? '暂停' : '继续', style: GoogleFonts.notoSansSc()),
                               onPress: (){
                                 if(widget.status=='active'){
                                   mainService.pauseTask(widget.gid);
@@ -402,14 +402,14 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                               },
                             ) else if(!widget.active) FTile(
                               prefixIcon: FIcon(FAssets.icons.rotateCw),
-                              title: const Text('重新下载'),
+                              title: Text('重新下载', style: GoogleFonts.notoSansSc()),
                               onPress: (){
                                 // TODO 重新下载
                               },
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.info),
-                              title: const Text('任务信息'),
+                              title: Text('任务信息', style: GoogleFonts.notoSansSc()),
                               onPress: () {
                                 Navigator.pop(context);
                                 showDetail(context);
@@ -417,7 +417,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.list),
-                              title: const Text('文件列表'),
+                              title: Text('文件列表', style: GoogleFonts.notoSansSc()),
                               onPress: () {
                                 Navigator.pop(context);
                                 showFiles(context);
@@ -425,7 +425,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.copy),
-                              title: const Text('复制链接'),
+                              title: Text('复制链接', style: GoogleFonts.notoSansSc()),
                               onPress: () {
                                 copyLink();
                                 Navigator.pop(context);
@@ -433,7 +433,7 @@ class _TaskItemState extends State<TaskItem> with SingleTickerProviderStateMixin
                             ),
                             FTile(
                               prefixIcon: FIcon(FAssets.icons.trash),
-                              title: const Text('移除'),
+                              title: Text('移除', style: GoogleFonts.notoSansSc()),
                               onPress: () {
                                 if(widget.active){
                                   mainService.remove(widget.gid);

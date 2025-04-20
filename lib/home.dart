@@ -78,23 +78,23 @@ class _HomeState extends State<Home> {
                   context: context, 
                   builder: (context)=>FDialog(
                     direction: Axis.horizontal,
-                    title: const Text('清空所有已完成的任务'),
-                    body: const Padding(
-                      padding: EdgeInsets.only(top: 5, bottom: 5),
-                      child: Text('这个操作无法撤销，确定要继续吗?'),
+                    title: Text('清空所有已完成的任务', style: GoogleFonts.notoSansSc()),
+                    body: Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Text('这个操作无法撤销，确定要继续吗?', style: GoogleFonts.notoSansSc()),
                     ),
                     actions: [
                       FButton(
                         style: FButtonStyle.outline,
                         onPress: ()=>Navigator.pop(context), 
-                        label: const Text('取消')
+                        label: Text('取消', style: GoogleFonts.notoSansSc())
                       ),
                       FButton(
                         onPress: (){
                           mainService.clearFinished();
                           Navigator.pop(context);
                         }, 
-                        label: const Text('删除')
+                        label: Text('删除', style: GoogleFonts.notoSansSc())
                       )
                     ]
                   )
