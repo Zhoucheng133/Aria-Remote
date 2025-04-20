@@ -1,4 +1,5 @@
 import 'package:aria_remote/components/task_item.dart';
+import 'package:aria_remote/pages/add.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class _ActiveState extends State<Active> {
             FButton.icon(
               style: FButtonStyle.primary,
               onPress: settings.isLogin() ? (){
-                // TODO 添加任务
+                Get.to(()=>const Add());
               } : null, 
               child: SizedBox(
                 height: 40,
