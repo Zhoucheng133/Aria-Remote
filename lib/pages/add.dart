@@ -48,7 +48,7 @@ class _AddState extends State<Add> {
       contentPad: false,
       header: FHeader.nested(
         title: Padding(
-          padding: const EdgeInsets.only(left: 10, top: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: Text(
             '添加任务',
             style: GoogleFonts.notoSansSc(),

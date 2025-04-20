@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         contentPad: false,
         header: FHeader(
           title: Padding(
-            padding: const EdgeInsets.only(left: 10, top: 5),
+            padding: const EdgeInsets.only(left: 5, top: 5),
             child: Text(
               pages.nameController(),
               style: GoogleFonts.notoSansSc(),

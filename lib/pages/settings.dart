@@ -21,7 +21,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [
