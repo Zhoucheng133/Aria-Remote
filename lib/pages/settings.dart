@@ -1,3 +1,4 @@
+import 'package:aria_remote/pages/about.dart';
 import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +49,7 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('关于Aria Remote', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.version.value, style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 关于页面
-                  },
+                  onPress: ()=>Get.to(()=>const About()),
                 )
               ]
             )
