@@ -7,6 +7,7 @@ import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 
@@ -44,8 +45,7 @@ class _MainAppState extends State<MainApp> {
     final Brightness brightness = MediaQuery.of(context).platformBrightness;
     settings.autoDarkController(brightness == Brightness.dark);
 
-    return 
-      GetMaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         builder: (context, child) => Obx(()=>
           FTheme(
@@ -53,8 +53,16 @@ class _MainAppState extends State<MainApp> {
             child: child!,
           )
         ),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('en', 'US'), // 美国英语
+          Locale('zh', 'CN'), // 中文简体
+        ],
         home: const Home(),
-      // )
     );
   }
 }
