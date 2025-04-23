@@ -35,9 +35,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.primary,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(okText??'完成', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.black : Colors.white,
-              ))
+              child: Obx(
+                ()=>Text(
+                  okText??'完成', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.black : Colors.white,
+                  )
+                ),
+              )
             )
           ),
         ],
@@ -72,9 +77,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.primary,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(okText??'完成', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.black : Colors.white,
-              ))
+              child: Obx(()=>
+                Text(
+                  okText??'完成', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.black : Colors.white,
+                  )
+                )
+              )
             )
           ),
         ],
@@ -111,9 +121,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.outline,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(cancelText??'取消', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.white : Colors.black,
-              ))
+              child: Obx(()=>
+                Text(
+                  cancelText??'取消', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.white : Colors.black,
+                  )
+                )
+              )
             )
           ),
           FButton.raw(
@@ -124,9 +139,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.primary,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(okText??'继续', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.black : Colors.white,
-              ))
+              child: Obx(()=>
+                Text(
+                  okText??'继续', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.black : Colors.white,
+                  )
+                )
+              )
             )
           ),
         ],
@@ -160,9 +180,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.outline,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(cancelText??'取消', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.white : Colors.black,
-              ))
+              child: Obx(()=>
+                Text(
+                  cancelText??'取消', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.white : Colors.black,
+                  )
+                )
+              )
             )
           ),
           FButton.raw(
@@ -173,9 +198,14 @@ class GetDialogs extends GetxController{
             style: FButtonStyle.primary,
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
-              child: Text(okText??'继续', style: GoogleFonts.notoSansSc(
-                color: settings.darkMode.value ? Colors.black : Colors.white,
-              ))
+              child: Obx(()=>
+                Text(
+                  okText??'继续', 
+                  style: GoogleFonts.notoSansSc(
+                    color: settings.darkMode.value ? Colors.black : Colors.white,
+                  )
+                )
+              )
             )
           ),
         ],
