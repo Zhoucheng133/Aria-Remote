@@ -3,6 +3,7 @@ import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path/path.dart' as p;
 
 class Finished extends StatefulWidget {
@@ -46,7 +47,12 @@ class _FinishedState extends State<Finished> {
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
-      ListView.builder(
+      tasks.stoppedInit.value ? Center(
+        child: LoadingAnimationWidget.waveDots(
+          color: Colors.black, 
+          size: 30
+        )
+      ) : ListView.builder(
         padding: const EdgeInsets.all(0),
         itemCount: tasks.stopped.length,
         itemBuilder: (BuildContext context, int index){

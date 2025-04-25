@@ -5,6 +5,7 @@ import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path/path.dart' as p;
 
 class Active extends StatefulWidget {
@@ -50,7 +51,12 @@ class _ActiveState extends State<Active> {
     return Stack(
       children: [
         Obx(()=>
-          ListView.builder(
+          tasks.activeInit.value ? Center(
+            child: LoadingAnimationWidget.waveDots(
+              color: Colors.black, 
+              size: 30
+            )
+          ) : ListView.builder(
             padding: const EdgeInsets.all(0),
             itemCount: tasks.active.length,
             itemBuilder: (BuildContext context, int index){

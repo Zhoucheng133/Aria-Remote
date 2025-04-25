@@ -1,6 +1,4 @@
 import 'dart:async';
-
-// import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
@@ -105,7 +103,10 @@ class GetMainService extends GetxController{
           });
           tasks.active.value=tempList;
       }
-    } 
+    }
+    if(tasks.activeInit.value){
+      tasks.activeInit.value=false;
+    }
   }
 
   // 请求停止的任务
@@ -154,6 +155,9 @@ class GetMainService extends GetxController{
           });
           tasks.stopped.value=lists;
       }
+    }
+    if(tasks.stoppedInit.value){
+      tasks.stoppedInit.value=false;
     }
   }
 
