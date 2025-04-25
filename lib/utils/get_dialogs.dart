@@ -4,9 +4,65 @@ import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class ActionItem{
+
+  String key;
+  String name;
+  SvgAsset? icon; 
+
+  ActionItem({
+    required this.key,
+    required this.name,
+    required this.icon,
+  });
+}
+
 class GetDialogs extends GetxController{
 
   final GetSettings settings=Get.find();
+
+  Future<String?> showActionSheet({
+    required BuildContext context,
+    required List<ActionItem> list,
+  }) async {
+    String? selectKey;
+    await showFSheet(
+      context: context, 
+      builder: (BuildContext context)=>Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FTileGroup(
+            children: list.map((item)=>
+              FTile(
+                prefixIcon: item.icon!=null ? FIcon(
+                  item.icon!,
+                  size: 20,
+                ) : null,
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Text(item.name, style: GoogleFonts.notoSansSc(
+                    fontSize: 17
+                  ),),
+                ),
+                onPress: (){
+                  Navigator.pop(context);
+                  selectKey=item.key;
+                },
+              )
+            ).toList(),
+          ),
+          Obx(()=>
+            Container(
+              height: MediaQuery.of(context).padding.bottom,
+              color: settings.darkMode.value ? Colors.black : Colors.white,
+            )
+          )
+        ],
+      ), 
+      side: FLayout.btt,
+    );
+    return selectKey;
+  }
 
   Future<void> showOkDialog({
     required BuildContext context,

@@ -388,81 +388,50 @@ class _TaskItemState extends State<TaskItem>{
                 ) : Container(),
                 FButton.icon(
                   style: FButtonStyle.ghost,
-                  onPress: ()=>showFSheet(
-                    context: context,
-                    side: FLayout.btt,
-                    builder: (context)=>Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        FTileGroup(
-                          children: [
-                            if(widget.active && (widget.status=='active' || widget.status=='paused')) FTile(
-                              prefixIcon: FIcon(widget.status=='active' ? FAssets.icons.pause : FAssets.icons.play),
-                              title: Text(widget.status=='active' ? '暂停' : '继续', style: GoogleFonts.notoSansSc()),
-                              onPress: (){
-                                if(widget.status=='active'){
-                                  mainService.pauseTask(widget.gid);
-                                }else{
-                                  mainService.continueTask(widget.gid);
-                                }
-                                Navigator.pop(context);
-                              },
-                            ) else if(!widget.active) FTile(
-                              prefixIcon: FIcon(FAssets.icons.rotateCw),
-                              title: Text('重新下载', style: GoogleFonts.notoSansSc()),
-                              onPress: (){
-                                Navigator.pop(context);
-                                reAddTask();
-                              },
-                            ),
-                            FTile(
-                              prefixIcon: FIcon(FAssets.icons.info),
-                              title: Text('任务信息', style: GoogleFonts.notoSansSc()),
-                              onPress: () {
-                                Navigator.pop(context);
-                                showDetail(context);
-                              },
-                            ),
-                            FTile(
-                              prefixIcon: FIcon(FAssets.icons.list),
-                              title: Text('文件列表', style: GoogleFonts.notoSansSc()),
-                              onPress: () {
-                                Navigator.pop(context);
-                                showFiles(context);
-                              },
-                            ),
-                            FTile(
-                              prefixIcon: FIcon(FAssets.icons.copy),
-                              title: Text('复制链接', style: GoogleFonts.notoSansSc()),
-                              onPress: () {
-                                copyLink();
-                                Navigator.pop(context);
-                              },
-                            ),
-                            FTile(
-                              prefixIcon: FIcon(FAssets.icons.trash),
-                              title: Text('移除', style: GoogleFonts.notoSansSc()),
-                              onPress: () {
-                                if(widget.active){
-                                  mainService.remove(widget.gid);
-                                }else{
-                                  mainService.removeFinishedTask(widget.gid);
-                                }
-                                
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        ),
-                        Obx(()=>
-                          Container(
-                            height: MediaQuery.of(context).padding.bottom,
-                            color: settings.darkMode.value ? Colors.black : Colors.white,
-                          )
-                        )
-                      ],
-                    )
-                  ), 
+                  onPress: () async {
+                    final List<ActionItem> ls=[
+                      ActionItem(key: 'info', name: '任务信息', icon: FAssets.icons.info),
+                      ActionItem(key: 'list', name: '文件列表', icon: FAssets.icons.list),
+                      ActionItem(key: 'copy', name: '复制链接', icon: FAssets.icons.copy),
+                      ActionItem(key: 'del', name: '移除', icon: FAssets.icons.trash),
+                    ];
+
+                    if(widget.active && widget.status=='active'){
+                      ls.insert(0, ActionItem(key: 'pause', name: '暂停', icon: FAssets.icons.pause));
+                    }else if(widget.active && widget.status=='paused'){
+                      ls.insert(0, ActionItem(key: 'continue', name: '继续', icon: FAssets.icons.play));
+                    }else if(!widget.active){
+                      ls.insert(0, ActionItem(key: 're', name: '重新下载', icon: FAssets.icons.rotateCw));
+                    }
+
+                    final rlt=await d.showActionSheet(
+                      context: context, 
+                      list: ls
+                    );
+                    if(rlt=='pause'){
+                      mainService.pauseTask(widget.gid);
+                    }else if(rlt=='continue'){
+                      mainService.continueTask(widget.gid);
+                    }else if(rlt=='re'){
+                      reAddTask();
+                    }else if(rlt=='info'){
+                      if(context.mounted){
+                        showDetail(context);
+                      }
+                    }else if(rlt=='list'){
+                      if(context.mounted){
+                        showFiles(context);
+                      }
+                    }else if(rlt=='copy'){
+                      copyLink();
+                    }else if(rlt=='del'){
+                      if(widget.active){
+                        mainService.remove(widget.gid);
+                      }else{
+                        mainService.removeFinishedTask(widget.gid);
+                      }
+                    }
+                  },
                   child: FIcon(
                     FAssets.icons.ellipsisVertical,
                   )
