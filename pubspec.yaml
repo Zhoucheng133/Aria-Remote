@@ -1,7 +1,7 @@
 name: aria_remote
-description: "A new Flutter project."
+description: "Aria Remote"
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ^3.5.4
