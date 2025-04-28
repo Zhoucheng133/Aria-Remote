@@ -12,6 +12,11 @@ import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
   Get.put(GetTasks());
   Get.put(GetPages());
   Get.put(GetSettings());
