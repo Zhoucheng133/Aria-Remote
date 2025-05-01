@@ -207,6 +207,7 @@ class Requests{
     }
   }
 
+  // 获取设置
   Future<Map?> getGlobalSettings() async {
     try {
       return (await httpRequest({

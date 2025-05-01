@@ -18,6 +18,14 @@ class GetMainService extends GetxController{
 
   late Timer interval;
 
+  void initSettings(){
+    // TODO 初始化设置
+  }
+
+  GetMainService(){
+    initSettings();
+  }
+
   // 添加任务
   Future<void> addTask(String url) async {
     await Requests().addTask([url]);
