@@ -216,4 +216,9 @@ class GetMainService extends GetxController{
     }
   }
 
+  // 保存用户设置
+  void saveSettings(){
+    // TODO 保存设置
+  }
+
 }

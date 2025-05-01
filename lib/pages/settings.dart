@@ -1,6 +1,7 @@
 import 'package:aria_remote/pages/about.dart';
 import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_functions.dart';
+import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -19,6 +20,7 @@ class _SettingsState extends State<Settings> {
   final GetSettings settings=Get.find();
   final GetFunctions functions=Get.find();
   final GetDialogs dialogs=Get.find();
+  final GetMainService mainService=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,75 @@ class _SettingsState extends State<Settings> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   onPress: ()=>functions.rpcDialog(context)
+                ),
+              ]
+            ),
+            FTileGroup(
+              label: Text('Aria 设置', style: GoogleFonts.notoSansSc(),),
+              children: [
+                FTile(
+                  title: Text('允许覆盖', style: GoogleFonts.notoSansSc(),),
+                  details: FSwitch(
+                    value: settings.overWrite.value,
+                    onChange: (val){
+                      settings.overWrite.value=val;
+                      mainService.saveSettings();
+                    },
+                  ),
+                ),
+                FTile(
+                  title: Text('下载位置', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.downloadPath.value, style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 下载位置修改
+                  },
+                ),
+                FTile(
+                  title: Text('最大同时下载个数', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.downloadCount.value.toString(), style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 最大下载个数修改
+                  },
+                ),
+                FTile(
+                  title: Text('做种时间', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.seedTime.value.toString(), style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 做种时间修改
+                  },
+                ),
+                FTile(
+                  title: Text('做种比例', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.seedRatio.value.toString(), style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 做种比例修改
+                  },
+                ),
+                FTile(
+                  title: Text('下载速度限制', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.downloadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 下载速度限制修改
+                  },
+                ),
+                FTile(
+                  title: Text('上传速度限制', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(settings.uploadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
+                  onPress: (){
+                    // TODO 上传速度限制修改
+                  },
+                ),
+                FTile(
+                  title: Text('用户代理', style: GoogleFonts.notoSansSc(),),
+                  subtitle: Text(
+                    settings.userProxy.value, 
+                    style: GoogleFonts.notoSansSc(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  onPress: (){
+                    // TODO 用户代理修改
+                  },
                 ),
               ]
             ),
@@ -110,7 +181,7 @@ class _SettingsState extends State<Settings> {
                   onPress: ()=>Get.to(()=>const About()),
                 )
               ]
-            )
+            ),
           ],
         ),
       ),
