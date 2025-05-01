@@ -21,7 +21,7 @@ class GetMainService extends GetxController{
   Future<void> initSettings() async {
     try {
       Map? data=await requests.getGlobalSettings();
-      print(data);
+      // print(data);
       if(data!=null){
         settings.overWrite.value=data['allow-overwrite']=="true" ? true : false;
         settings.downloadPath.value=data['dir'] ?? "";
