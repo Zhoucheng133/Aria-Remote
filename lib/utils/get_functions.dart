@@ -2,6 +2,7 @@ import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_pages.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
+import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class GetFunctions extends GetxController{
   final GetPages pages=Get.find();
   final GetSettings settings=Get.find();
   final GetDialogs d=Get.find();
+  final GetTasks t=Get.find();
 
   final GetMainService mainService=Get.find();
 
@@ -86,6 +88,8 @@ class GetFunctions extends GetxController{
     String? rpc=prefs.getString('rpc');
     String? secret=prefs.getString('secret');
     if(rpc==null || secret==null){
+      t.activeInit.value=false;
+      t.stoppedInit.value=false;
       if(context.mounted){
         final set=await d.showOkCancelDialog(
           context: context, 
