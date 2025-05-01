@@ -31,7 +31,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellActive",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result'];
     } catch (_) {
@@ -45,7 +45,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellWaiting",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", 0, 1000]
       }))['result'];
     } catch (_) {
@@ -59,7 +59,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.tellStopped",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", 0, 1000]
       }))['result'];
     } catch (_) {
@@ -73,7 +73,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.getVersion",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result']['version'];
     } catch (_) {
@@ -88,7 +88,7 @@ class Requests{
         await httpRequest({
           "jsonrpc":"2.0",
           "method":"aria2.addUri",
-          "id":"ariaui",
+          "id":"ariaRemote",
           "params":["token:${s.secret.value}", [url], {
             "user-agent": agent,
             "max-overall-download-limit": limit,
@@ -106,7 +106,7 @@ class Requests{
         await httpRequest({
           "jsonrpc":"2.0",
           "method":"aria2.addUri",
-          "id":"ariaui",
+          "id":"ariaRemote",
           "params":["token:${s.secret.value}", [url], {}]
         });
       } catch (_) {}
@@ -119,7 +119,7 @@ class Requests{
       await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.remove",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", gid]
       });
     } catch (_) {}
@@ -131,7 +131,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.removeDownloadResult",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", gid]
       }))['result'];
     } catch (_) {
@@ -145,7 +145,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.pause",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", gid]
       }))['result'];
     } catch (_) {
@@ -159,7 +159,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.unpause",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", gid]
       }))['result'];
     } catch (_) {
@@ -173,7 +173,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.purgeDownloadResult",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result'];
     } catch (_) {
@@ -186,7 +186,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.unpauseAll",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result'];
     } catch (_) {
@@ -199,7 +199,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.pauseAll",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result'];
     } catch (_) {
@@ -213,7 +213,7 @@ class Requests{
       return (await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.getGlobalOption",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}"]
       }))['result'];
     } catch (_) {
@@ -226,7 +226,7 @@ class Requests{
       var resp=(await httpRequest({
         "jsonrpc":"2.0",
         "method":"aria2.changeGlobalOption",
-        "id":"ariaui",
+        "id":"ariaRemote",
         "params":["token:${s.secret.value}", settings]
       }))['result'];
       return resp;
