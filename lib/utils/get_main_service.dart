@@ -18,12 +18,22 @@ class GetMainService extends GetxController{
 
   late Timer interval;
 
-  void initSettings(){
-    // TODO 初始化设置
-  }
-
-  GetMainService(){
-    initSettings();
+  Future<void> initSettings() async {
+    try {
+      Map? data=await requests.getGlobalSettings();
+      print(data);
+      if(data!=null){
+        settings.overWrite.value=data['allow-overwrite']=="true" ? true : false;
+        settings.downloadPath.value=data['dir'] ?? "";
+        settings.downloadCount.value=int.parse(data['max-concurrent-downloads'] ?? "10");
+        settings.seedTime.value=int.parse(data['seed-time'] ?? "0");
+        settings.seedRatio.value=double.parse(data['seed-ratio'] ?? "0.0");
+        settings.downloadLimit.value=int.parse(data['max-download-limit'] ?? "0");
+        settings.uploadLimit.value=int.parse(data['max-upload-limit'] ?? "0");
+        settings.userProxy.value=data['user-agent'] ?? "";
+      }
+      
+    } catch (_) {}
   }
 
   // 添加任务
@@ -192,6 +202,7 @@ class GetMainService extends GetxController{
       interval= Timer.periodic(const Duration(seconds: 1), (Timer time){
         serviceMain();
       });
+      initSettings();
     }else{
       tasks.active.value=[];
       tasks.stopped.value=[];

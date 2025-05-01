@@ -30,7 +30,7 @@ class GetSettings extends GetxController{
   RxString version="".obs;
   
   // 允许覆盖
-  RxBool enableCover=false.obs;
+  RxBool overWrite=false.obs;
   // 下载位置
   RxString downloadPath=''.obs;
   // 最大同时下载数量
@@ -38,7 +38,7 @@ class GetSettings extends GetxController{
   // 做种时间
   RxInt seedTime=0.obs;
   // 做种比例
-  RxInt seedRatio=0.obs;
+  RxDouble seedRatio=0.0.obs;
   // 下载速度限制
   RxInt downloadLimit=0.obs;
   // 上传速度限制
