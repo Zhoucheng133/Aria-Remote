@@ -26,7 +26,7 @@ class _SettingsState extends State<Settings> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.only(bottom: 20, top: 0, left: 0, right: 0),
           children: [
             FTileGroup(
               label: Text('Aria 配置', style: GoogleFonts.notoSansSc(),),
