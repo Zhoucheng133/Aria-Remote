@@ -4,6 +4,7 @@ import 'package:aria_remote/utils/get_functions.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,8 +83,23 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('最大同时下载个数', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.downloadCount.value.toString(), style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 最大下载个数修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.downloadCount.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '最大同时下载个数', 
+                      child: FTextField(
+                        controller: input,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        settings.downloadCount.value=int.parse(input.text);
+                        mainService.saveSettings();
+                      }
+                    );
                   },
                 ),
                 FTile(
