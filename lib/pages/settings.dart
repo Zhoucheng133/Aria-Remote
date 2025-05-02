@@ -105,8 +105,27 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('做种时间', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.seedTime.value.toString(), style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 做种时间修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.seedTime.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '做种时间', 
+                      child: FTextField(
+                        controller: input,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        suffixBuilder: (context, value, child) => Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text('秒', style: GoogleFonts.notoSansSc(),),
+                        ),
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        settings.seedTime.value=int.parse(input.text);
+                        mainService.saveSettings();
+                      }
+                    );
                   },
                 ),
                 FTile(
