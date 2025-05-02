@@ -63,8 +63,20 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('下载位置', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.downloadPath.value, style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 下载位置修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.downloadPath.value);
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '下载地址', 
+                      child: FTextField(
+                        controller: input,
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        settings.downloadPath.value=input.text;
+                        mainService.saveSettings();
+                      }
+                    );
                   },
                 ),
                 FTile(
