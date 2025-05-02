@@ -66,6 +66,7 @@ class _AddState extends State<Add> {
               label: Text('在这里输入新任务的链接', style: GoogleFonts.notoSansSc(),),
               controller: inputUrl,
               maxLines: 5,
+              hint: 'http(s)://\nmagnet:?xt=urn:btih:',
             ),
             const SizedBox(height: 15,),
             FButton(
