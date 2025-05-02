@@ -242,8 +242,21 @@ class _SettingsState extends State<Settings> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  onPress: (){
-                    // TODO 用户代理修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.userAgent.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '用户代理', 
+                      child: FTextField(
+                        controller: input,
+                        maxLines: 6,
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        settings.userAgent.value=input.text;
+                        mainService.saveSettings();
+                      }
+                    );
                   },
                 ),
               ]
