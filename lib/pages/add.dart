@@ -18,6 +18,8 @@ class _AddState extends State<Add> {
   final GetMainService mainService=Get.find();
   final GetDialogs d=Get.find();
 
+  FocusNode focus=FocusNode();
+
   bool validLink(String input){
     List urls=input.split("\n");
     for (var url in urls) {
@@ -43,6 +45,14 @@ class _AddState extends State<Add> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(focus);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FScaffold(
       contentPad: false,
@@ -63,6 +73,7 @@ class _AddState extends State<Add> {
         child: Column(
           children: [
             FTextField.multiline(
+              focusNode: focus,
               label: Text('在这里输入新任务的链接', style: GoogleFonts.notoSansSc(),),
               controller: inputUrl,
               maxLines: 5,
