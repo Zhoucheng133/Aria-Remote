@@ -28,8 +28,8 @@ class GetMainService extends GetxController{
         settings.downloadCount.value=int.parse(data['max-concurrent-downloads'] ?? "10");
         settings.seedTime.value=int.parse(data['seed-time'] ?? "0");
         settings.seedRatio.value=double.parse(data['seed-ratio'] ?? "0.0");
-        settings.downloadLimit.value=int.parse(data['max-download-limit'] ?? "0");
-        settings.uploadLimit.value=int.parse(data['max-upload-limit'] ?? "0");
+        settings.downloadLimit.value=int.parse(data['max-overall-download-limit'] ?? "0");
+        settings.uploadLimit.value=int.parse(data['max-overall-upload-limit'] ?? "0");
         settings.userAgent.value=data['user-agent'] ?? "";
       }
       
@@ -224,8 +224,8 @@ class GetMainService extends GetxController{
       "max-concurrent-downloads": settings.downloadCount.value.toString(),
       "seed-time": settings.seedTime.value.toString(),
       "seed-ratio": settings.seedRatio.value.toString(),
-      "max-download-limit": settings.downloadLimit.value.toString(),
-      "max-upload-limit": settings.uploadLimit.value.toString(),
+      "max-overall-download-limit": settings.downloadLimit.value.toString(),
+      "max-overall-upload-limit": settings.uploadLimit.value.toString(),
       "user-agent": settings.userAgent.value
     };
     requests.changeGlobalSettings(json);
