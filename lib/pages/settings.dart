@@ -89,6 +89,7 @@ class _SettingsState extends State<Settings> {
                       context: context, 
                       title: '最大同时下载个数', 
                       child: FTextField(
+                        keyboardType: TextInputType.number,
                         controller: input,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -111,6 +112,7 @@ class _SettingsState extends State<Settings> {
                       context: context, 
                       title: '做种时间', 
                       child: FTextField(
+                        keyboardType: TextInputType.number,
                         controller: input,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -145,6 +147,7 @@ class _SettingsState extends State<Settings> {
                       context: context, 
                       title: '做种比例', 
                       child: FTextField(
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         controller: input,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp("[0-9.]"))
@@ -175,6 +178,7 @@ class _SettingsState extends State<Settings> {
                       context: context, 
                       title: '下载速度限制', 
                       child: FTextField(
+                        keyboardType: TextInputType.number,
                         controller: input,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
@@ -209,6 +213,7 @@ class _SettingsState extends State<Settings> {
                       context: context, 
                       title: '上传速度限制', 
                       child: FTextField(
+                        keyboardType: TextInputType.number,
                         controller: input,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
