@@ -44,5 +44,5 @@ class GetSettings extends GetxController{
   // 上传速度限制
   RxInt uploadLimit=0.obs;
   // 用户代理
-  RxString userProxy=''.obs;
+  RxString userAgent=''.obs;
 }

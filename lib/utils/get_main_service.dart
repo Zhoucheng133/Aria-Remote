@@ -30,7 +30,7 @@ class GetMainService extends GetxController{
         settings.seedRatio.value=double.parse(data['seed-ratio'] ?? "0.0");
         settings.downloadLimit.value=int.parse(data['max-download-limit'] ?? "0");
         settings.uploadLimit.value=int.parse(data['max-upload-limit'] ?? "0");
-        settings.userProxy.value=data['user-agent'] ?? "";
+        settings.userAgent.value=data['user-agent'] ?? "";
       }
       
     } catch (_) {}
@@ -218,7 +218,17 @@ class GetMainService extends GetxController{
 
   // 保存用户设置
   void saveSettings(){
-    // TODO 保存设置
+    final json={
+      "allow-overwrite": settings.overWrite.value?"true": "false",
+      "dir": settings.downloadPath.value,
+      "max-concurrent-downloads": settings.downloadCount.value.toString(),
+      "seed-time": settings.seedTime.value.toString(),
+      "seed-ratio": settings.seedRatio.value.toString(),
+      "max-download-limit": settings.downloadLimit.value.toString(),
+      "max-upload-limit": settings.uploadLimit.value.toString(),
+      "user-agent": settings.userAgent.value
+    };
+    requests.changeGlobalSettings(json);
   }
 
 }

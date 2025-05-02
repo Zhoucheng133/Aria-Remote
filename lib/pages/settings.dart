@@ -105,7 +105,7 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('用户代理', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(
-                    settings.userProxy.value, 
+                    settings.userAgent.value, 
                     style: GoogleFonts.notoSansSc(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
