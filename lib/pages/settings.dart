@@ -169,15 +169,69 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('下载速度限制', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.downloadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 下载速度限制修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.downloadLimit.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '下载速度限制', 
+                      child: FTextField(
+                        controller: input,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        suffixBuilder: (context, value, child) => Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text('字节/秒', style: GoogleFonts.notoSansSc(),),
+                        ),
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        try {
+                          settings.downloadLimit.value=int.parse(input.text);
+                          mainService.saveSettings();
+                        } catch (_) {
+                          dialogs.showOkDialog(
+                            context: context, 
+                            title: '修改错误', 
+                            content: '输入内容不合法'
+                          );
+                        }
+                      }
+                    );
                   },
                 ),
                 FTile(
                   title: Text('上传速度限制', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.uploadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 上传速度限制修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.uploadLimit.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '上传速度限制', 
+                      child: FTextField(
+                        controller: input,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        suffixBuilder: (context, value, child) => Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text('字节/秒', style: GoogleFonts.notoSansSc(),),
+                        ),
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        try {
+                          settings.uploadLimit.value=int.parse(input.text);
+                          mainService.saveSettings();
+                        } catch (_) {
+                          dialogs.showOkDialog(
+                            context: context, 
+                            title: '修改错误', 
+                            content: '输入内容不合法'
+                          );
+                        }
+                      }
+                    );
                   },
                 ),
                 FTile(
