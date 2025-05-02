@@ -252,9 +252,8 @@ class _SettingsState extends State<Settings> {
                     await dialogs.showOkCancelDialogRaw(
                       context: context, 
                       title: '用户代理', 
-                      child: FTextField(
+                      child: FTextField.multiline(
                         controller: input,
-                        maxLines: 6,
                       ),
                       okText: '完成',
                       okHandler: (){
