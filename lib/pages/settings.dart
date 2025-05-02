@@ -122,8 +122,16 @@ class _SettingsState extends State<Settings> {
                       ),
                       okText: '完成',
                       okHandler: (){
-                        settings.seedTime.value=int.parse(input.text);
-                        mainService.saveSettings();
+                        try {
+                          settings.seedTime.value=int.parse(input.text);
+                          mainService.saveSettings();
+                        } catch (_) {
+                          dialogs.showOkDialog(
+                            context: context, 
+                            title: '修改错误', 
+                            content: '输入内容不合法'
+                          );
+                        }
                       }
                     );
                   },
@@ -131,8 +139,31 @@ class _SettingsState extends State<Settings> {
                 FTile(
                   title: Text('做种比例', style: GoogleFonts.notoSansSc(),),
                   subtitle: Text(settings.seedRatio.value.toString(), style: GoogleFonts.notoSansSc(),),
-                  onPress: (){
-                    // TODO 做种比例修改
+                  onPress: () async {
+                    final input=TextEditingController(text: settings.seedRatio.value.toString());
+                    await dialogs.showOkCancelDialogRaw(
+                      context: context, 
+                      title: '做种比例', 
+                      child: FTextField(
+                        controller: input,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp("[0-9.]"))
+                        ],
+                      ),
+                      okText: '完成',
+                      okHandler: (){
+                        try {
+                          settings.seedRatio.value=double.parse(input.text);
+                          mainService.saveSettings();
+                        } catch (_) {
+                          dialogs.showOkDialog(
+                            context: context, 
+                            title: '修改错误', 
+                            content: '输入内容不合法'
+                          );
+                        }
+                      }
+                    );
                   },
                 ),
                 FTile(
