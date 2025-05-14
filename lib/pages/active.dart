@@ -2,6 +2,7 @@ import 'package:aria_remote/components/task_item.dart';
 import 'package:aria_remote/pages/add.dart';
 import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
@@ -46,6 +47,8 @@ class _ActiveState extends State<Active> {
     return selectList.contains(gid);
   }
 
+  final ScrollController controller=ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,51 +59,55 @@ class _ActiveState extends State<Active> {
               color: Colors.black, 
               size: 30
             )
-          ) : ListView.builder(
-            padding: const EdgeInsets.all(0),
-            itemCount: tasks.active.length,
-            itemBuilder: (BuildContext context, int index){
-              String name='';
-              String dir='';
-              int completedLength=0;
-              int totalLength=0;
-              int downloadSpeed=0;
-              String gid='';
-              String status='';
-              int uploadSpeed=0;
-              dir=tasks.active[index]['dir'];
-              completedLength=int.parse(tasks.active[index]['completedLength']);
-              totalLength=int.parse(tasks.active[index]['totalLength']);
-              downloadSpeed=int.parse(tasks.active[index]['downloadSpeed']);
-              gid=tasks.active[index]['gid'];
-              status=tasks.active[index]['status'];
-              uploadSpeed=int.parse(tasks.active[index]['uploadSpeed']);
-              try {
-                name=tasks.active[index]['bittorrent']['info']['name'];
-              } catch (_) {
-                name=p.basename(tasks.active[index]['files'][0]['path']);
+          ) : CupertinoScrollbar(
+            controller: controller,
+            child: ListView.builder(
+              controller: controller,
+              padding: const EdgeInsets.all(0),
+              itemCount: tasks.active.length,
+              itemBuilder: (BuildContext context, int index){
+                String name='';
+                String dir='';
+                int completedLength=0;
+                int totalLength=0;
+                int downloadSpeed=0;
+                String gid='';
+                String status='';
+                int uploadSpeed=0;
+                dir=tasks.active[index]['dir'];
+                completedLength=int.parse(tasks.active[index]['completedLength']);
+                totalLength=int.parse(tasks.active[index]['totalLength']);
+                downloadSpeed=int.parse(tasks.active[index]['downloadSpeed']);
+                gid=tasks.active[index]['gid'];
+                status=tasks.active[index]['status'];
+                uploadSpeed=int.parse(tasks.active[index]['uploadSpeed']);
+                try {
+                  name=tasks.active[index]['bittorrent']['info']['name'];
+                } catch (_) {
+                  name=p.basename(tasks.active[index]['files'][0]['path']);
+                }
+                return Column(
+                  children: [
+                    TaskItem(
+                      name: name, 
+                      totalLength: totalLength, 
+                      completedLength: completedLength, 
+                      dir: dir, 
+                      downloadSpeed: downloadSpeed, 
+                      gid: gid, 
+                      status: status, 
+                      selectMode: select, 
+                      changeSelectStatus: ()=>changeSelectStatus(gid), 
+                      checked: checked(gid), 
+                      active: true, 
+                      index: index,
+                      uploadSpeed: uploadSpeed,
+                    ),
+                    index==tasks.active.length-1 ? const SizedBox(height: 70,) : Container(),
+                  ],
+                );
               }
-              return Column(
-                children: [
-                  TaskItem(
-                    name: name, 
-                    totalLength: totalLength, 
-                    completedLength: completedLength, 
-                    dir: dir, 
-                    downloadSpeed: downloadSpeed, 
-                    gid: gid, 
-                    status: status, 
-                    selectMode: select, 
-                    changeSelectStatus: ()=>changeSelectStatus(gid), 
-                    checked: checked(gid), 
-                    active: true, 
-                    index: index,
-                    uploadSpeed: uploadSpeed,
-                  ),
-                  index==tasks.active.length-1 ? const SizedBox(height: 70,) : Container(),
-                ],
-              );
-            }
+            ),
           )
         ),
         Positioned(
