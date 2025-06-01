@@ -1,3 +1,4 @@
+import 'package:aria_remote/components/header.dart';
 import 'package:aria_remote/pages/active.dart';
 import 'package:aria_remote/pages/finished.dart';
 import 'package:aria_remote/pages/settings.dart';
@@ -41,71 +42,7 @@ class _HomeState extends State<Home> {
     return Obx(()=>
       FScaffold(
         contentPad: false,
-        header: FHeader(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 5, top: 5),
-            child: Text(
-              pages.nameController(),
-              style: GoogleFonts.notoSansSc(),
-            )
-          ),
-          actions: [
-            pages.page.value==Pages.settings ? Container() : FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.arrowDownUp,
-                size: 20,
-              ),
-              onPress: (){
-                if(pages.page.value==Pages.active){
-                  if(pages.activeOrder.value==Order.oldTime){
-                    pages.activeOrder.value=Order.newTime;
-                  }else{
-                    pages.activeOrder.value=Order.oldTime;
-                  }
-                  mainService.tellActive();
-                }else{
-                  if(pages.finishedOrder.value==Order.oldTime){
-                    pages.finishedOrder.value=Order.newTime;
-                  }else{
-                    pages.finishedOrder.value=Order.oldTime;
-                  }
-                  mainService.tellStopped();
-                }
-              }
-            ),
-            pages.page.value==Pages.finished ? const SizedBox(width: 10,) : Container(),
-            pages.page.value==Pages.finished ? FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.trash,
-                size: 20,
-              ),
-              onPress: () async {
-                final data=await d.showOkCancelDialog(
-                  context: context, 
-                  title: '清空所有已完成的任务', 
-                  content: '这个操作无法撤销，确定要继续吗?',
-                  okText: '删除'
-                );
-                if(data){
-                  mainService.clearFinished();
-                }
-              }
-            ) : Container(),
-            if(pages.page.value==Pages.finished) const SizedBox(width: 10,),
-            pages.page.value!=Pages.settings ? FHeaderAction(
-              icon: Obx(()=>
-                FIcon(
-                  FAssets.icons.squareCheckBig,
-                  size: 20,
-                  color: settings.selectMode.value ? Colors.grey[400] : Colors.black,
-                ),
-              ),
-              onPress: (){
-                settings.selectMode.value=!settings.selectMode.value;
-              },
-            ) : Container(),
-          ],
-        ),
+        header: const AppHeader(),
         footer: FBottomNavigationBar(
           index: pages.page.value.index,
           children: [
@@ -125,7 +62,8 @@ class _HomeState extends State<Home> {
           onChange: (index){
             pages.page.value=Pages.values[index];
             if(settings.isLogin()){
-              settings.selectMode.value=false;
+              tasks.selectMode.value=false;
+              tasks.selected.value=[];
               if(index==0){
                 tasks.activeInit.value=true;
               }else if(index==1){

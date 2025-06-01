@@ -300,30 +300,46 @@ class _TaskItemState extends State<TaskItem>{
             child: Container(color: Colors.orange[50]),
           ) : Container(),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10),
+            padding: const EdgeInsets.only(left: 15, right: 10),
             child: Row(
               children: [
+                Obx(()=>
+                  tasks.selectMode.value ? FCheckbox(
+                    value: tasks.isSelected(widget.gid),
+                    enabled: true,
+                    onChange: (_){
+                      tasks.toggleSelected(widget.gid);
+                    },
+                  ) : Container(),
+                ),
+                Obx(() => tasks.selectMode.value ? const SizedBox(width: 5,) : Container(),),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: GoogleFonts.notoSansSc(
-                          fontSize: 15,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                  child: GestureDetector(
+                    onTap: ()=>tasks.toggleSelected(widget.gid),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.name,
+                            style: GoogleFonts.notoSansSc(
+                              fontSize: 15,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 5,),
+                          Text(
+                            convertSize(widget.totalLength),
+                            style: GoogleFonts.notoSansSc(
+                              color: Colors.grey[600],
+                              fontSize: 12
+                            ),
+                          )
+                        ],
                       ),
-                      const SizedBox(height: 5,),
-                      Text(
-                        convertSize(widget.totalLength),
-                        style: GoogleFonts.notoSansSc(
-                          color: Colors.grey[600],
-                          fontSize: 12
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                 ),
                 widget.active ? widget.status=='active' ? Column(
