@@ -90,7 +90,20 @@ class _HomeState extends State<Home> {
                   mainService.clearFinished();
                 }
               }
-            ) : Container()
+            ) : Container(),
+            if(pages.page.value==Pages.finished) const SizedBox(width: 10,),
+            pages.page.value!=Pages.settings ? FHeaderAction(
+              icon: Obx(()=>
+                FIcon(
+                  FAssets.icons.squareCheckBig,
+                  size: 20,
+                  color: settings.selectMode.value ? Colors.grey[400] : Colors.black,
+                ),
+              ),
+              onPress: (){
+                settings.selectMode.value=!settings.selectMode.value;
+              },
+            ) : Container(),
           ],
         ),
         footer: FBottomNavigationBar(
@@ -112,6 +125,7 @@ class _HomeState extends State<Home> {
           onChange: (index){
             pages.page.value=Pages.values[index];
             if(settings.isLogin()){
+              settings.selectMode.value=false;
               if(index==0){
                 tasks.activeInit.value=true;
               }else if(index==1){

@@ -27,6 +27,9 @@ class GetSettings extends GetxController{
     return rpc.value.isNotEmpty && secret.value.isNotEmpty;
   }
 
+  // 是否在选择模式
+  RxBool selectMode=false.obs;
+
   RxString version="".obs;
   
   // 允许覆盖
