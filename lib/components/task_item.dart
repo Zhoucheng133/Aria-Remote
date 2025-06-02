@@ -292,12 +292,12 @@ class _TaskItemState extends State<TaskItem>{
           widget.active ? FractionallySizedBox(
             widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
             heightFactor: 1.0,
-            child: Container(color: Colors.teal[50]),
+            child: Obx(()=> Container(color: settings.darkMode.value ? Colors.teal[400] : Colors.teal[50])),
           ) : Container(),
           !widget.active && widget.completedLength/widget.totalLength!=1 ? FractionallySizedBox(
             widthFactor: widget.totalLength==0 ? 0 : (widget.completedLength/widget.totalLength),
             heightFactor: 1.0,
-            child: Container(color: Colors.orange[50]),
+            child: Obx(()=> Container(color: settings.darkMode.value ? Colors.orange[400] : Colors.orange[50])),
           ) : Container(),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 10),

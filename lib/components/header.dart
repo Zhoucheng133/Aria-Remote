@@ -1,6 +1,7 @@
 import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_pages.dart';
+import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -22,6 +23,7 @@ class _AppHeaderState extends State<AppHeader> {
     final GetMainService mainService=Get.find();
     final GetTasks tasks=Get.find();
     final GetDialogs d=Get.find();
+    final GetSettings s=Get.find();
 
     Future<void> reDownloadTask() async {
       for (var item in tasks.selected) {
@@ -154,7 +156,7 @@ class _AppHeaderState extends State<AppHeader> {
                 FIcon(
                   FAssets.icons.squareCheckBig,
                   size: 20,
-                  color: tasks.selectMode.value ? Colors.grey[400] : Colors.black,
+                  color: tasks.selectMode.value ? Colors.grey[400] : s.darkMode.value ? Colors.white : Colors.black,
                 ),
               ),
               onPress: ()=>tasks.toggleSelectMode(),
