@@ -342,66 +342,72 @@ class _TaskItemState extends State<TaskItem>{
                     ),
                   ),
                 ),
-                widget.active ? widget.status=='active' ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
+                GestureDetector(
+                  onTap: ()=>tasks.toggleSelected(widget.gid),
+                  child: Container(
+                    color: Colors.transparent,
+                    child: widget.active ? widget.status=='active' ? Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.uploadSpeed!=null ? Row(
+                        Row(
                           mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            widget.uploadSpeed!=0 ? FIcon(
-                              FAssets.icons.arrowUp,
-                              size: 14,
+                            widget.uploadSpeed!=null ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                widget.uploadSpeed!=0 ? FIcon(
+                                  FAssets.icons.arrowUp,
+                                  size: 14,
+                                ) : Container(),
+                                const SizedBox(width: 3,),
+                                Text(
+                                  widget.uploadSpeed==0 ? '' : '${convertSize(widget.uploadSpeed!)}/s',
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12
+                                  ),
+                                ),
+                              ],
                             ) : Container(),
+                            const SizedBox(width: 10,),
+                            FIcon(
+                              FAssets.icons.arrowDown,
+                              size: 14,
+                            ),
                             const SizedBox(width: 3,),
                             Text(
-                              widget.uploadSpeed==0 ? '' : '${convertSize(widget.uploadSpeed!)}/s',
+                              widget.downloadSpeed==0 ? '0 B/s' : '${convertSize(widget.downloadSpeed)}/s',
                               style: GoogleFonts.notoSansSc(
                                 fontSize: 12
                               ),
                             ),
                           ],
-                        ) : Container(),
-                        const SizedBox(width: 10,),
-                        FIcon(
-                          FAssets.icons.arrowDown,
-                          size: 14,
                         ),
-                        const SizedBox(width: 3,),
-                        Text(
-                          widget.downloadSpeed==0 ? '0 B/s' : '${convertSize(widget.downloadSpeed)}/s',
-                          style: GoogleFonts.notoSansSc(
-                            fontSize: 12
+                        (widget.completedLength/widget.totalLength)!=1.0 ? Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            widget.downloadSpeed==0 ? '--:--' : formatDuration(((widget.totalLength - widget.completedLength) > 0 ? widget.totalLength - widget.completedLength : 0)~/widget.downloadSpeed),
+                            style: GoogleFonts.notoSansSc(
+                              fontSize: 12,
+                              color: Colors.grey[600]
+                            ),
                           ),
-                        ),
+                        ):Container()
                       ],
-                    ),
-                    (widget.completedLength/widget.totalLength)!=1.0 ? Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        widget.downloadSpeed==0 ? '--:--' : formatDuration(((widget.totalLength - widget.completedLength) > 0 ? widget.totalLength - widget.completedLength : 0)~/widget.downloadSpeed),
-                        style: GoogleFonts.notoSansSc(
-                          fontSize: 12,
-                          color: Colors.grey[600]
-                        ),
-                      ),
-                    ):Container()
-                  ],
-                ) : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FIcon(
-                      widget.status=='paused' ? FAssets.icons.circlePause : FAssets.icons.loader,
-                      size: 15,
-                      color: Colors.grey,
-                    )
-                  ],
-                ) : Container(),
+                    ) : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FIcon(
+                          widget.status=='paused' ? FAssets.icons.circlePause : FAssets.icons.loader,
+                          size: 15,
+                          color: Colors.grey,
+                        )
+                      ],
+                    ) : Container(),
+                  ),
+                ),
                 FButton.icon(
                   style: FButtonStyle.ghost,
                   onPress: () async {
