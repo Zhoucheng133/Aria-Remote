@@ -23,6 +23,20 @@ class _AppHeaderState extends State<AppHeader> {
     final GetTasks tasks=Get.find();
     final GetDialogs d=Get.find();
 
+    Future<void> reDownloadTask() async {
+      for (var item in tasks.selected) {
+        try {
+          final el=tasks.stopped.firstWhere((element){
+            return element['gid'] == item;
+          });
+          final uris=el['files'][0]['uris'];
+          final infoHash=el['infoHash'];
+          await mainService.addTask(uris.length==0 ? 'magnet:?xt=urn:btih:$infoHash' : uris[0]['uri']);
+        } catch (_) {}
+      }
+      await mainService.removeSelectedFinishedTasks();
+    }
+
     return Obx(()=>
       FHeader(
         title: Padding(
@@ -64,8 +78,9 @@ class _AppHeaderState extends State<AppHeader> {
                 FAssets.icons.rotateCw,
                 size: 20,
               ), 
-              onPress: (){
-                // TODO 重试
+              onPress: () async {
+                await reDownloadTask();
+                tasks.toggleSelectMode();
               }
             ),
           ),
