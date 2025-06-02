@@ -87,6 +87,20 @@ class GetMainService extends GetxController{
     }
     serviceMain();
   }
+
+  Future<void> pauseSelected() async {
+    for (String element in tasks.selected) {
+      await Requests().pauseTask(element);
+    }
+    serviceMain();
+  }
+
+  Future<void> continueSelected() async {
+    for (String element in tasks.selected) {
+      await Requests().continueTask(element);
+    }
+    serviceMain();
+  }
   
   // 请求活跃的任务
   Future<void> tellActive() async {

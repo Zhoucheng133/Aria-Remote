@@ -56,8 +56,9 @@ class _AppHeaderState extends State<AppHeader> {
                 FAssets.icons.play,
                 size: 20,
               ), 
-              onPress: (){
-                // TODO 继续
+              onPress: () async {
+                await mainService.continueSelected();
+                tasks.toggleSelectMode();
               }
             ),
           ),
@@ -68,8 +69,9 @@ class _AppHeaderState extends State<AppHeader> {
                 FAssets.icons.pause,
                 size: 20,
               ), 
-              onPress: (){
-                // TODO 暂停
+              onPress: () async {
+                await mainService.pauseSelected();
+                tasks.toggleSelectMode();
               }
             ),
           ),
