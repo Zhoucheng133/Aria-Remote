@@ -71,6 +71,22 @@ class GetMainService extends GetxController{
     await requests.continueTask(gid);
     serviceMain();
   }
+
+  // 删除指定已完成任务
+  Future<void> removeSelectedFinishedTasks() async {
+    for (String element in tasks.selected) {
+      await Requests().removeFinishedTask(element);
+    }
+    serviceMain();
+  }
+
+  // 删除指定进行中的人物
+  Future<void> removeSelectedActiveTasks() async {
+    for (String element in tasks.selected) {
+      await Requests().removeTask(element);
+    }
+    serviceMain();
+  }
   
   // 请求活跃的任务
   Future<void> tellActive() async {

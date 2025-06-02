@@ -29,4 +29,9 @@ class GetTasks extends GetxController{
     }
     selected.refresh();
   }
+
+  void toggleSelectMode(){
+    selectMode.value=!selectMode.value;
+    selected.value=[];
+  }
 }

@@ -104,7 +104,20 @@ class _AppHeaderState extends State<AppHeader> {
               ),
               onPress: () async {
                 if(tasks.selectMode.value){
-                  // TODO 清除选中任务
+                  final data=await d.showOkCancelDialog(
+                    context: context, 
+                    title: '清空选中的任务', 
+                    content: '这个操作无法撤销，确定要继续吗?',
+                    okText: '删除'
+                  );
+                  if(data){
+                    if(pages.page.value==Pages.finished){
+                      await mainService.removeSelectedFinishedTasks();
+                    }else{
+                      await mainService.removeSelectedActiveTasks();
+                    }
+                    tasks.toggleSelectMode();
+                  }
                 }else{
                   final data=await d.showOkCancelDialog(
                     context: context, 
@@ -129,10 +142,7 @@ class _AppHeaderState extends State<AppHeader> {
                   color: tasks.selectMode.value ? Colors.grey[400] : Colors.black,
                 ),
               ),
-              onPress: (){
-                tasks.selectMode.value=!tasks.selectMode.value;
-                tasks.selected.value=[];
-              },
+              onPress: ()=>tasks.toggleSelectMode(),
             ),
           )
         ],

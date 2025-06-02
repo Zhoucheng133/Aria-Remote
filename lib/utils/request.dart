@@ -181,6 +181,7 @@ class Requests{
     }
   }
 
+  // 继续所有
   Future<String?> continueAll() async {
     try {
       return (await httpRequest({
@@ -194,6 +195,7 @@ class Requests{
     }
   }
 
+  // 暂停所有
   Future<String?> pauseAll() async {
     try {
       return (await httpRequest({
@@ -221,6 +223,7 @@ class Requests{
     }
   }
 
+  // 修改全局设置
   Future<String?> changeGlobalSettings(Map settings) async{
     try {
       var resp=(await httpRequest({
