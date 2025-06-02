@@ -131,6 +131,7 @@ class _AppHeaderState extends State<AppHeader> {
               ),
               onPress: (){
                 tasks.selectMode.value=!tasks.selectMode.value;
+                tasks.selected.value=[];
               },
             ),
           )
