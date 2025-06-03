@@ -1,7 +1,6 @@
 import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
 import 'package:aria_remote/utils/get_pages.dart';
-// import 'package:aria_remote/utils/get_settings.dart';
 import 'package:aria_remote/utils/get_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -23,7 +22,6 @@ class _AppHeaderState extends State<AppHeader> {
     final GetMainService mainService=Get.find();
     final GetTasks tasks=Get.find();
     final GetDialogs d=Get.find();
-    // final GetSettings s=Get.find();
 
     Future<void> reDownloadTask() async {
       for (var item in tasks.selected) {
@@ -151,11 +149,11 @@ class _AppHeaderState extends State<AppHeader> {
               }
             ),
           ),
-          if(pages.page.value!=Pages.settings && tasks.selectMode.value) Padding(
+          if(pages.page.value!=Pages.settings) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
               icon: Text(
-                "取消",
+                tasks.selectMode.value ? "取消" : "选择",
                 style: GoogleFonts.notoSansSc(),
               ),
               onPress: ()=>tasks.toggleSelectMode(),
