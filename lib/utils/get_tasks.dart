@@ -22,6 +22,7 @@ class GetTasks extends GetxController{
   }
 
   void toggleSelected(String gid){
+    if(!selectMode.value) return;
     if(selected.contains(gid)){
       selected.remove(gid);
     }else{

@@ -316,6 +316,12 @@ class _TaskItemState extends State<TaskItem>{
                 Expanded(
                   child: GestureDetector(
                     onTap: ()=>tasks.toggleSelected(widget.gid),
+                    onLongPress: (){
+                      tasks.toggleSelectMode();
+                      if(tasks.selectMode.value){
+                        tasks.selected.add(widget.gid);
+                      }
+                    },
                     child: Container(
                       color: Colors.transparent,
                       child: Column(
@@ -344,6 +350,12 @@ class _TaskItemState extends State<TaskItem>{
                 ),
                 GestureDetector(
                   onTap: ()=>tasks.toggleSelected(widget.gid),
+                  onLongPress: (){
+                    tasks.toggleSelectMode();
+                    if(tasks.selectMode.value){
+                      tasks.selected.add(widget.gid);
+                    }
+                  },
                   child: Container(
                     color: Colors.transparent,
                     child: widget.active ? widget.status=='active' ? Column(
