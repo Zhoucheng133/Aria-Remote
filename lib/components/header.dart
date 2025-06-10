@@ -46,14 +46,14 @@ class _AppHeaderState extends State<AppHeader> {
             style: GoogleFonts.notoSansSc(),
           )
         ),
-        actions: [
+        suffixes: [
           if(pages.page.value==Pages.active && tasks.selectMode.value) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.play,
+              icon: const Icon(
+                FIcons.play,
                 size: 20,
-              ), 
+              ),
               onPress: () async {
                 await mainService.continueSelected();
                 tasks.toggleSelectMode();
@@ -63,10 +63,14 @@ class _AppHeaderState extends State<AppHeader> {
           if(pages.page.value==Pages.active && tasks.selectMode.value) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.pause,
+              // icon: FIcon(
+              //   FIcons.pause,
+              //   size: 20,
+              // ), 
+              icon: const Icon(
+                FIcons.pause,
                 size: 20,
-              ), 
+              ),
               onPress: () async {
                 await mainService.pauseSelected();
                 tasks.toggleSelectMode();
@@ -76,8 +80,8 @@ class _AppHeaderState extends State<AppHeader> {
           if(pages.page.value==Pages.finished && tasks.selectMode.value) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.rotateCw,
+              icon: const Icon(
+                FIcons.rotateCw,
                 size: 20,
               ), 
               onPress: () async {
@@ -89,8 +93,8 @@ class _AppHeaderState extends State<AppHeader> {
           if(pages.page.value!=Pages.settings && !tasks.selectMode.value) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
-              icon: FIcon(
-                FAssets.icons.arrowDownUp,
+              icon: const Icon(
+                FIcons.arrowDownUp,
                 size: 20,
               ),
               onPress: (){
@@ -115,8 +119,8 @@ class _AppHeaderState extends State<AppHeader> {
           if(pages.page.value==Pages.finished || tasks.selectMode.value) Padding(
             padding: const EdgeInsets.only(right: 15),
             child: FHeaderAction(
-              icon: FIcon(
-                tasks.selectMode.value ? FAssets.icons.trash : FAssets.icons.trash2,
+              icon: Icon(
+                tasks.selectMode.value ? FIcons.trash : FIcons.trash2,
                 size: 20,
               ),
               onPress: () async {

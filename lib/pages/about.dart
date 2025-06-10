@@ -19,14 +19,14 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      contentPad: false,
+      childPad: false,
       header: FHeader.nested(
         title: Text('关于', style: GoogleFonts.notoSansSc(),),
-        prefixActions: [
+        prefixes: [
           FHeaderAction.back(onPress: ()=>Get.back()),
         ],
       ),
-      content: Padding(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Center(
           child: Column(
@@ -63,8 +63,8 @@ class _AboutState extends State<About> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FIcon(
-                      FAssets.icons.github,
+                    const Icon(
+                      FIcons.github,
                       size: 15,
                     ),
                     const SizedBox(width: 5,),
@@ -90,8 +90,12 @@ class _AboutState extends State<About> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FIcon(
-                      FAssets.icons.scale,
+                    // FIcon(
+                    //   FIcons.scale,
+                    //   size: 15,
+                    // ),
+                    const Icon(
+                      FIcons.scale,
                       size: 15,
                     ),
                     const SizedBox(width: 5,),

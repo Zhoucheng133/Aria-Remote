@@ -370,8 +370,8 @@ class _TaskItemState extends State<TaskItem>{
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                widget.uploadSpeed!=0 ? FIcon(
-                                  FAssets.icons.arrowUp,
+                                widget.uploadSpeed!=0 ? const Icon(
+                                  FIcons.arrowUp,
                                   size: 14,
                                 ) : Container(),
                                 const SizedBox(width: 3,),
@@ -384,8 +384,8 @@ class _TaskItemState extends State<TaskItem>{
                               ],
                             ) : Container(),
                             const SizedBox(width: 10,),
-                            FIcon(
-                              FAssets.icons.arrowDown,
+                            const Icon(
+                              FIcons.arrowDown,
                               size: 14,
                             ),
                             const SizedBox(width: 3,),
@@ -411,8 +411,8 @@ class _TaskItemState extends State<TaskItem>{
                     ) : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FIcon(
-                          widget.status=='paused' ? FAssets.icons.circlePause : FAssets.icons.loader,
+                        Icon(
+                          widget.status=='paused' ? FIcons.circlePause : FIcons.loader,
                           size: 15,
                           color: Colors.grey,
                         )
@@ -424,18 +424,18 @@ class _TaskItemState extends State<TaskItem>{
                   style: FButtonStyle.ghost,
                   onPress: () async {
                     final List<ActionItem> ls=[
-                      ActionItem(key: 'info', name: '任务信息', icon: FAssets.icons.info),
-                      ActionItem(key: 'list', name: '文件列表', icon: FAssets.icons.list),
-                      ActionItem(key: 'copy', name: '复制链接', icon: FAssets.icons.copy),
-                      ActionItem(key: 'del', name: '移除', icon: FAssets.icons.trash),
+                      ActionItem(key: 'info', name: '任务信息', icon: FIcons.info),
+                      ActionItem(key: 'list', name: '文件列表', icon: FIcons.list),
+                      ActionItem(key: 'copy', name: '复制链接', icon: FIcons.copy),
+                      ActionItem(key: 'del', name: '移除', icon: FIcons.trash),
                     ];
 
                     if(widget.active && widget.status=='active'){
-                      ls.insert(0, ActionItem(key: 'pause', name: '暂停', icon: FAssets.icons.pause));
+                      ls.insert(0, ActionItem(key: 'pause', name: '暂停', icon: FIcons.pause));
                     }else if(widget.active && widget.status=='paused'){
-                      ls.insert(0, ActionItem(key: 'continue', name: '继续', icon: FAssets.icons.play));
+                      ls.insert(0, ActionItem(key: 'continue', name: '继续', icon: FIcons.play));
                     }else if(!widget.active){
-                      ls.insert(0, ActionItem(key: 're', name: '重新下载', icon: FAssets.icons.rotateCw));
+                      ls.insert(0, ActionItem(key: 're', name: '重新下载', icon: FIcons.rotateCw));
                     }
 
                     final rlt=await d.showActionSheet(
@@ -466,8 +466,8 @@ class _TaskItemState extends State<TaskItem>{
                       }
                     }
                   },
-                  child: FIcon(
-                    FAssets.icons.ellipsisVertical,
+                  child: const Icon(
+                    FIcons.ellipsisVertical,
                   )
                 )
               ],

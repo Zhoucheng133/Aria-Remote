@@ -8,7 +8,7 @@ class ActionItem{
 
   String key;
   String name;
-  SvgAsset? icon; 
+  IconData? icon; 
 
   ActionItem({
     required this.key,
@@ -34,7 +34,7 @@ class GetDialogs extends GetxController{
           FTileGroup(
             children: list.map((item)=>
               FTile(
-                prefixIcon: item.icon!=null ? FIcon(
+                prefixIcon: item.icon!=null ? Icon(
                   item.icon!,
                   size: 20,
                 ) : null,

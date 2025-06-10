@@ -41,21 +41,21 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Obx(()=>
       FScaffold(
-        contentPad: false,
+        childPad: false,
         header: const AppHeader(),
         footer: FBottomNavigationBar(
           index: pages.page.value.index,
           children: [
             FBottomNavigationBarItem(
-              icon: FIcon(FAssets.icons.download),
+              icon: const Icon(FIcons.download),
               label: Text('活跃中', style: GoogleFonts.notoSansSc(),),
             ),
             FBottomNavigationBarItem(
-              icon: FIcon(FAssets.icons.listCheck),
+              icon: const Icon(FIcons.listCheck),
               label: Text('已完成', style: GoogleFonts.notoSansSc(),),
             ),
             FBottomNavigationBarItem(
-              icon: FIcon(FAssets.icons.settings),
+              icon: const Icon(FIcons.settings),
               label: Text('设置', style: GoogleFonts.notoSansSc(),),
             ),
           ],
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
             }
           },
         ),
-        content: IndexedStack(
+        child: IndexedStack(
           index: pages.page.value.index,
           children: const [
             Active(),

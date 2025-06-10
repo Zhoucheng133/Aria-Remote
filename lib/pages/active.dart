@@ -119,12 +119,12 @@ class _ActiveState extends State<Active> {
               onPress: settings.isLogin() ? (){
                 Get.to(()=>const Add());
               } : null, 
-              child: SizedBox(
+              child: const SizedBox(
                 height: 40,
                 width: 40,
                 child: Center(
-                  child: FIcon(
-                    FAssets.icons.plus,
+                  child: Icon(
+                    FIcons.plus,
                     size: 30,
                   ),
                 )

@@ -45,7 +45,7 @@ class _AddState extends State<Add> {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      contentPad: false,
+      childPad: false,
       header: FHeader.nested(
         title: Padding(
           padding: const EdgeInsets.only(top: 5),
@@ -54,11 +54,11 @@ class _AddState extends State<Add> {
             style: GoogleFonts.notoSansSc(),
           )
         ),
-        prefixActions: [
+        prefixes: [
           FHeaderAction.back(onPress: ()=>Get.back()),
         ],
       ),
-      content: Padding(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
@@ -71,7 +71,7 @@ class _AddState extends State<Add> {
             const SizedBox(height: 15,),
             FButton(
               onPress: ()=>addTaskHandler(), 
-              label: Text('添加', style: GoogleFonts.notoSansSc(),)
+              child: Text('添加', style: GoogleFonts.notoSansSc(),)
             )
           ],
         ),
