@@ -52,6 +52,9 @@ class GetFunctions extends GetxController{
     final rpcController=TextEditingController();
     final secretController=TextEditingController();
 
+    rpcController.text=settings.rpc.value;
+    secretController.text=settings.secret.value;
+
     d.showOkCancelDialogRaw(
       context: context, 
       title: "配置Aria RPC", 
