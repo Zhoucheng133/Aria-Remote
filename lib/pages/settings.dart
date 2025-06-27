@@ -73,7 +73,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadPath.value);
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -97,7 +97,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadCount.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -125,7 +125,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.seedTime.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -165,7 +165,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.seedRatio.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -201,7 +201,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadLimit.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -241,7 +241,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.uploadLimit.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
@@ -286,7 +286,7 @@ class _SettingsState extends State<Settings> {
                     onPress: () async {
                       final input=TextEditingController(text: settings.userAgent.value.toString());
                       final FocusNode focus=FocusNode();
-                      Future.delayed(const Duration(milliseconds: 200), (){
+                      Future.delayed(const Duration(milliseconds: 300), (){
                         focus.requestFocus();
                       });
                       await dialogs.showOkCancelDialogRaw(
