@@ -17,6 +17,19 @@ class _AddState extends State<Add> {
   final inputUrl=TextEditingController();
   final GetMainService mainService=Get.find();
   final GetDialogs d=Get.find();
+  final FocusNode focus=FocusNode();
+
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        if (mounted) {
+          FocusScope.of(context).requestFocus(focus);
+        }
+      });
+    });
+  }
 
   bool validLink(String input){
     List urls=input.split("\n");
@@ -67,6 +80,7 @@ class _AddState extends State<Add> {
               controller: inputUrl,
               maxLines: 5,
               hint: 'http(s)://\nmagnet:?xt=urn:btih:',
+              focusNode: focus,
             ),
             const SizedBox(height: 15,),
             FButton(
