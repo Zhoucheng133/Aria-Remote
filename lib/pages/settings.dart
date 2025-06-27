@@ -72,11 +72,16 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.downloadPath.value, style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadPath.value);
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '下载地址', 
                         child: FTextField(
                           controller: input,
+                          focusNode: focus,
                         ),
                         okText: '完成',
                         okHandler: (){
@@ -91,12 +96,17 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.downloadCount.value.toString(), style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadCount.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '最大同时下载个数', 
                         child: FTextField(
                           keyboardType: TextInputType.number,
                           controller: input,
+                          focusNode: focus,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
@@ -114,12 +124,17 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.seedTime.value.toString(), style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.seedTime.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '做种时间', 
                         child: FTextField(
                           keyboardType: TextInputType.number,
                           controller: input,
+                          focusNode: focus,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
@@ -149,12 +164,17 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.seedRatio.value.toString(), style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.seedRatio.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '做种比例', 
                         child: FTextField(
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
                           controller: input,
+                          focusNode: focus,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp("[0-9.]"))
                           ],
@@ -180,12 +200,17 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.downloadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.downloadLimit.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '下载速度限制', 
                         child: FTextField(
                           keyboardType: TextInputType.number,
                           controller: input,
+                          focusNode: focus,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
@@ -215,12 +240,17 @@ class _SettingsState extends State<Settings> {
                     subtitle: Text(settings.uploadLimit.value.toString(), style: GoogleFonts.notoSansSc(),),
                     onPress: () async {
                       final input=TextEditingController(text: settings.uploadLimit.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '上传速度限制', 
                         child: FTextField(
                           keyboardType: TextInputType.number,
                           controller: input,
+                          focusNode: focus,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
@@ -255,10 +285,15 @@ class _SettingsState extends State<Settings> {
                     ),
                     onPress: () async {
                       final input=TextEditingController(text: settings.userAgent.value.toString());
+                      final FocusNode focus=FocusNode();
+                      Future.delayed(const Duration(milliseconds: 200), (){
+                        focus.requestFocus();
+                      });
                       await dialogs.showOkCancelDialogRaw(
                         context: context, 
                         title: '用户代理', 
                         child: FTextField.multiline(
+                          focusNode: focus,
                           controller: input,
                         ),
                         okText: '完成',
