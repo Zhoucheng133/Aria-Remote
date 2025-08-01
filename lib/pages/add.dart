@@ -1,5 +1,6 @@
 import 'package:aria_remote/utils/get_dialogs.dart';
 import 'package:aria_remote/utils/get_main_service.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
@@ -19,9 +20,19 @@ class _AddState extends State<Add> {
   final GetDialogs d=Get.find();
   final FocusNode focus=FocusNode();
 
+  Future<void> init() async {
+    final copyText=await FlutterClipboard.paste();
+    if(validLink(copyText)){
+      setState(() {
+        inputUrl.text=copyText;
+      });
+    }
+  }
+
   @override
   void initState(){
     super.initState();
+    init();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 300), () {
         if (mounted) {
